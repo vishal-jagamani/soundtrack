@@ -3,6 +3,10 @@ import { createBrowserRouter } from 'react-router-dom'
 import Home from './pages/home'
 import SignIn from './pages/auth/SignIn'
 import PageNotFound from './components/PageNotFound'
+import Layout from './components/Layout'
+import Search from './pages/search'
+import Playlist from './pages/playlist'
+import ErrorPage from './components/ErrorPage'
 // import ErrorPage from "./components/errorPage";
 // import PageNotFound from './components/utils/hoc/pageNotFound';
 // const TokenValidation = lazy(() => import('./components/utils/hoc/tokenValidation'));
@@ -12,14 +16,30 @@ import PageNotFound from './components/PageNotFound'
 
 export const router = createBrowserRouter([
   {
-    path: '/',
-    element: <Home />,
-    errorElement: <PageNotFound />,
+    element: <Layout />,
+    children: [
+      {
+        path: '/',
+        element: <Home />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: '/search',
+        element: <Search />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: '/playlist',
+        element: <Playlist />,
+        errorElement: <ErrorPage />,
+      },
+    ],
   },
+
   {
     path: '/sign-in',
     element: <SignIn />,
-    // errorElement: <PageNotFound />,
+    errorElement: <ErrorPage />,
   },
   {
     path: '*',
