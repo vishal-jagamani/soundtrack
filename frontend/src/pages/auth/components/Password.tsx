@@ -9,9 +9,9 @@ const container = {
   exit: { opacity: 0, x: 200 },
 }
 interface EmailProps {
-  handleChangeStep: (val: number) => void
+  //   handleChangeStep: (val: number) => void
 }
-const Password: FC<EmailProps> = ({ handleChangeStep }) => {
+const Password: FC<EmailProps> = ({}) => {
   return (
     <motion.div key='email' variants={container} initial='hidden' animate='show' exit='exit'>
       <form action='#' className='mt-8 grid grid-cols-6 gap-6'>
