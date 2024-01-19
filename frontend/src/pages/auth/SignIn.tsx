@@ -47,11 +47,7 @@ const SignIn: React.FC = () => {
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
               </p>
               <AnimatePresence mode={'wait'}>
-                {signInStep === 0 ? (
-                  <Email handleChangeStep={(val: number) => setSignInStep(val)} />
-                ) : (
-                  <Password handleChangeStep={(val: number) => setSignInStep(val)} />
-                )}
+                {signInStep === 0 ? <Email handleChangeStep={(val: number) => setSignInStep(val)} /> : <Password />}
               </AnimatePresence>
             </div>
           </motion.div>

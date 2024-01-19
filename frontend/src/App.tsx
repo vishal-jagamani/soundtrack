@@ -5,7 +5,6 @@ import './App.css'
 import { router } from './routes'
 import LoadingSpinner from './components/loader/LoadingSpinner'
 import { ThemeProvider } from './components/theme-provider'
-import Layout from './components/Layout'
 
 export const App: React.FC = () => {
   return (
