@@ -12,8 +12,14 @@ const checkUserEmail = async (email) => {
             return { status: true, userExist: true, message: 'User email already registerd', data };
         } else {
             const sendEmail = await sendEmailWithOTP(email);
-            if (sendEmail && sendEmail?.status) {
-                return { status: true, userExist: false, otpVerificationMailSent: true, message: 'User email not registerd' };
+            if (sendEmail && sendEmail?.sendEmail && sendEmail?.sendEmail?.status) {
+                return {
+                    status: true,
+                    userExist: false,
+                    otpVerificationMailSent: true,
+                    message: 'User email not registerd',
+                    userId: sendEmail?.userId,
+                };
             } else {
                 return { status: true, userExist: false, otpVerificationMailSent: false, message: 'User email not registerd' };
             }
@@ -31,7 +37,7 @@ const sendEmailWithOTP = async (email) => {
         const addUserWithOTP = await addNewUserInDB(email, otp);
         const emailBody = config?.Email_Config?.OTP_Verification_Email_Body?.replace('[otp]', otp);
         const sendEmail = await sendEmailWithNodeMailer(email, emailBody);
-        return sendEmail;
+        return { sendEmail, userId: addUserWithOTP?.insertedId };
     } catch (err) {
         console.log('Error in authService.checkUserEmail service', err);
         return { status: false, message: 'Error in service' };
@@ -189,7 +195,7 @@ const userSignup = async (req, res) => {
 const userLogin = async (req, res) => {
     try {
         const { userId, email, password } = req?.body;
-        const userData = await findOne('User', { userId });
+        const userData = await findOne('User', { email });
         if (userData) {
             bcrypt?.compare(password, userData?.password, async (err, result) => {
                 if (err) {
