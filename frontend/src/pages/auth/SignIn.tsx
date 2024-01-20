@@ -3,6 +3,7 @@ import PATTERN_IMAGE from '@/assets/images/sign_up_pattern.png'
 import Email from './components/Email'
 import { AnimatePresence, motion } from 'framer-motion'
 import Password from './components/Password'
+import OtpVerify from './components/OtpVerify'
 const container = {
   hidden: { opacity: 0, x: -200 },
   show: { opacity: 1, x: 0, transition: { delay: 0.5 } },
@@ -47,7 +48,13 @@ const SignIn: React.FC = () => {
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
               </p>
               <AnimatePresence mode={'wait'}>
-                {signInStep === 0 ? <Email handleChangeStep={(val: number) => setSignInStep(val)} /> : <Password />}
+                {signInStep === 2 ? (
+                  <Password />
+                ) : signInStep === 1 ? (
+                  <OtpVerify />
+                ) : (
+                  <Email handleChangeStep={(val: number) => setSignInStep(val)} />
+                )}
               </AnimatePresence>
             </div>
           </motion.div>
