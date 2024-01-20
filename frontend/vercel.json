@@ -1,0 +1,20 @@
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    },
+    {
+      "source": "/search(.*)",
+      "destination": "/search"
+    },
+    {
+      "source": "/playlist(.*)",
+      "destination": "/playlist"
+    },
+    {
+      "source": "/sign-in(.*)",
+      "destination": "/sign-in"
+    }
+  ]
+}
