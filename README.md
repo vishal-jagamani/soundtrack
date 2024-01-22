@@ -19,8 +19,14 @@
 
 **Getting Started:**
 
-1. Clone the repository: `git clone https://github.com/YOUR_USERNAME/soundtrack.git`
-2. Install dependencies: `npm install`
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/soundtrack.git
+   ```
+2. Install dependencies:
+   ```bash
+    npm install
+   ```
 3. Set up your Spotify API credentials:
     * Create a Spotify developer account at [https://developer.spotify.com/](https://developer.spotify.com/)
     * Create a new app
