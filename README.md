@@ -21,7 +21,7 @@
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/soundtrack.git
+   https://github.com/NiranjanPatil07/soundtrack.git
    ```
 2. Install dependencies:
    ```bash
