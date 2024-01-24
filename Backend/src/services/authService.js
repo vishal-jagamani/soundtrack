@@ -9,7 +9,20 @@ const checkUserEmail = async (email) => {
     try {
         const data = await findOne('User', { email });
         if (data) {
-            return { status: true, userExist: true, message: 'User email already registerd', data };
+            if (!data.otpVerified) {
+                const sendEmail = await sendEmailWithOTP(data.email);
+                if (sendEmail && sendEmail?.sendEmail && sendEmail?.sendEmail?.status) {
+                    return {
+                        status: true,
+                        userExist: false,
+                        otpVerificationMailSent: true,
+                        message: 'User email not registered',
+                        userId: sendEmail?.userId,
+                    };
+                } else {
+                    return { status: true, userExist: false, otpVerificationMailSent: false, message: 'User email not registered' };
+                }
+            } else return { status: true, userExist: true, message: 'User registered', data };
         } else {
             const sendEmail = await sendEmailWithOTP(email);
             if (sendEmail && sendEmail?.sendEmail && sendEmail?.sendEmail?.status) {
@@ -152,25 +165,27 @@ const resendOTP = async (userId) => {
 };
 
 // Function which accepts the details of user with password and registers user in the app
-const userSignup = async (req, res) => {
+const userSignupDetails = async (req, res) => {
     try {
-        const { userId, name, password } = req?.body;
+        const { userId, firstName, lastName, password } = req?.body;
         const encryptedPassword = await bcrypt?.hash(password, 10);
         const updateQuery = {
             $set: {
-                name: name || null,
+                firstName: firstName,
+                lastName: lastName,
                 password: encryptedPassword,
                 modifiedAt: Math.floor(Date.now() / 1000),
             },
         };
-        const udpateUserDetails = await findOneAndUpdate('User', { userId }, updateQuery);
-        if (udpateUserDetails && udpateUserDetails) {
+        const updateUserDetails = await findOneAndUpdate('User', { userId }, updateQuery);
+        if (updateUserDetails && updateUserDetails) {
             const accessTokenExpiryTime = Math.floor(Date.now() / 1000);
             const refreshTokenExpiresIn = Math.floor(Date.now() / 1000) + 604800;
             const tokenData = {
                 userId,
-                name: udpateUserDetails?.name || null,
-                email: udpateUserDetails?.email || null,
+                firstName: updateUserDetails?.firstName,
+                lastName: updateUserDetails?.lastName,
+                email: updateUserDetails?.email || null,
                 isLoggedIn: true,
                 createdAt: Math.floor(Date.now() / 1000),
                 expiryTime: Math.floor(Date.now() / 1000) + 3600,
@@ -234,4 +249,4 @@ const userLogin = async (req, res) => {
     }
 };
 
-export { addNewUserInDB, checkUserEmail, resendOTP, sendEmailWithNodeMailer, sendEmailWithOTP, userLogin, userSignup, verifyOTP };
+export { addNewUserInDB, checkUserEmail, resendOTP, sendEmailWithNodeMailer, sendEmailWithOTP, userLogin, userSignupDetails, verifyOTP };

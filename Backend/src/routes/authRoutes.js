@@ -38,7 +38,7 @@ router.get('/resendOTP', async (req, res) => {
 
 router.post('/userSignup', async (req, res) => {
     try {
-        const response = await userSignup(req, res);
+        const response = await userSignupDetails(req, res);
         return response;
     } catch (err) {
         res.status(500).send(err);
