@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 
 // Services
-import { checkUserEmail, resendOTP, userLogin, userSignup, verifyOTP } from '../services/authService.js';
+import { checkUserEmail, resendOTP, userLogin, userSignupDetails, verifyOTP } from '../services/authService.js';
 
 // Micro routes
 router.get('/', async (req, res) => {
