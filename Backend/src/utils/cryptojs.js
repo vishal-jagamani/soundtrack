@@ -1,12 +1,12 @@
-import { AES, enc } from 'crypto-js';
-import { Secrets } from '../../config/config';
+import CryptoJS from 'crypto-js';
+import { Secrets } from '../../config/config.js';
 
 export const encryptData = (rawData) => {
-    const encryptedData = AES?.encrypt(JSON.stringify(rawData), Secrets?.CRYPTOJS_SECRET)?.toString();
+    const encryptedData = CryptoJS?.AES?.encrypt(JSON.stringify(rawData), Secrets?.CRYPTOJS_SECRET)?.toString();
     return encryptedData;
 };
 
 export const decryptData = (encryptedData) => {
-    const decryptedData = AES?.decrypt(encryptedData, Secrets?.CRYPTOJS_SECRET)?.toString(enc?.Utf8);
+    const decryptedData = CryptoJS?.AES?.decrypt(encryptedData, Secrets?.CRYPTOJS_SECRET)?.toString(CryptoJS?.enc?.Utf8);
     return decryptedData;
 };
