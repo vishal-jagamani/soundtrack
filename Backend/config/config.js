@@ -19,6 +19,10 @@ export const config = {
         Support_Email_Address: process?.env?.SUPPORT_EMAIL,
         Support_Email_Address_Password: process?.env?.SUPPORT_EMAIL_PASSWORD,
     },
+    Access_Token_Expiry_Time: 3600,
+    Refresh_Token_Expiry_Time: 604800,
+    JWT_Access_Token_Expiry_Time: '1m',
+    JWT_Refresh_Token_Expiry_Time: '7d',
 };
 
 export const Secrets = {
@@ -36,8 +40,12 @@ export const MonogoDB_Config = {
 
 export const Spotify_Config = {
     OAuth_URL: 'https://accounts.spotify.com/authorize',
+    OAuth_Redirect_URI: process?.env?.SPOTIFY_OAUTH_REDIRECT_URI,
     User_Scope: 'user-read-private user-read-email',
     API_TOKEN_URL: 'https://accounts.spotify.com/api/token',
+    API_Base_URL: 'https://api.spotify.com/v1',
+    Search_Items_Type: 'artist,track,playlist,album,show,episode,audiobook',
+    // Search_Items_Type: 'artist,track,playlist,album,show,episode,audiobook',
 };
 
 export const Error_Responses = {

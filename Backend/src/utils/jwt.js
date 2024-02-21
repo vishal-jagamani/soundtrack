@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken';
-import { Error_Responses, Secrets } from '../../config/config.js';
+import { Error_Responses, Secrets, config } from '../../config/config.js';
 
 const generateNewAccessToken = async (data) => {
     try {
-        const accessToken = jwt.sign(data, Secrets?.JWT_ACCESS_TOKEN, { expiresIn: '1m' });
+        const accessToken = jwt.sign(data, Secrets?.JWT_ACCESS_TOKEN, { expiresIn: config?.JWT_Access_Token_Expiry_Time });
         return { status: true, accessToken, expiresIn: '1m' };
     } catch (err) {
         console.log('Error in authenticationService.generateNewAccessToken service', err);
@@ -13,7 +13,7 @@ const generateNewAccessToken = async (data) => {
 
 const generateNewRefreshToken = async (data) => {
     try {
-        const refreshToken = jwt.sign(data, Secrets?.JWT_REFRESH_TOKEN, { expiresIn: '7d' });
+        const refreshToken = jwt.sign(data, Secrets?.JWT_REFRESH_TOKEN, { expiresIn: config?.JWT_Refresh_Token_Expiry_Time });
         return { status: true, refreshToken, expiresIn: '7d' };
     } catch (err) {
         console.log('Error in authenticationService.generateNewRefreshToken service', err);
@@ -28,6 +28,8 @@ const validateAccessToken = async (accessToken) => {
     } catch (err) {
         if (err && err?.name && err?.name === 'TokenExpiredError') {
             return { status: false, error: 'Expired' };
+        } else if (err && err?.name && err?.name === 'JsonWebTokenError') {
+            return { status: false, error: 'Invalid' };
         } else {
             console.log('Error in authenticationService.validateAccessToken service', err);
             return { status: false, error: 'Invalid' };
@@ -67,4 +69,3 @@ const verifyAccessToken = async (req, res, next) => {
 };
 
 export { generateNewAccessToken, generateNewRefreshToken, validateAccessToken, verifyAccessToken };
-

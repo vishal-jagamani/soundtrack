@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 
 // Services
-import { checkUserEmail, resendOTP, userLogin, userSignup, verifyOTP } from '../services/authService.js';
+import { checkUserEmail, resendOTP, userLogin, userSignupDetails, verifyOTP } from '../../services/auth/authService.js';
 
 // Micro routes
 router.get('/', async (req, res) => {
@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
 
 router.post('/checkUserEmail', async (req, res) => {
     try {
-        const response = await checkUserEmail(req.body.email);
+        const response = await checkUserEmail(req.body);
         res.status(200).send(response);
     } catch (err) {
         res.status(500).send(err);
@@ -38,7 +38,7 @@ router.get('/resendOTP', async (req, res) => {
 
 router.post('/userSignup', async (req, res) => {
     try {
-        const response = await userSignup(req, res);
+        const response = await userSignupDetails(req, res);
         return response;
     } catch (err) {
         res.status(500).send(err);
