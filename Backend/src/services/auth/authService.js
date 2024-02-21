@@ -1,41 +1,42 @@
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
-import { config } from '../../config/config.js';
-import { generateNewAccessToken, generateNewRefreshToken } from '../utils/jwt.js';
-import { findLastDocument, findOne, findOneAndUpdate, insertOne, updateOne } from './mongodbService.js';
+import { config } from '../../../config/config.js';
+import { generateNewAccessToken, generateNewRefreshToken } from '../../utils/jwt.js';
+import { findLastDocument, findOne, findOneAndUpdate, insertOne, updateOne } from '../mongodbService.js';
 
 // Function which checks email to verify whether user is registered already or not
-const checkUserEmail = async (email) => {
+const checkUserEmail = async (details) => {
     try {
-        const data = await findOne('User', { email });
-        if (data) {
-            if (!data.otpVerified) {
-                const sendEmail = await sendEmailWithOTP(data.email);
-                if (sendEmail && sendEmail?.sendEmail && sendEmail?.sendEmail?.status) {
-                    return {
-                        status: true,
-                        userExist: false,
-                        otpVerificationMailSent: true,
-                        message: 'User email not registered',
-                        userId: sendEmail?.userId,
-                    };
-                } else {
-                    return { status: true, userExist: false, otpVerificationMailSent: false, message: 'User email not registered' };
-                }
-            } else return { status: true, userExist: true, message: 'User registered', data };
-        } else {
-            const sendEmail = await sendEmailWithOTP(email);
-            if (sendEmail && sendEmail?.sendEmail && sendEmail?.sendEmail?.status) {
-                return {
-                    status: true,
-                    userExist: false,
-                    otpVerificationMailSent: true,
-                    message: 'User email not registerd',
-                    userId: sendEmail?.userId,
-                };
+        const { email } = details;
+        const user = await findOne('User', { email });
+        if (user) {
+            // User email exist
+            if (user?.otpVerified == true) {
+                const data = { userId: user?.userId, userExist: true, email: user?.email, otpVerified: user?.otpVerified };
+                return { status: true, message: 'Existing user', data };
             } else {
-                return { status: true, userExist: false, otpVerificationMailSent: false, message: 'User email not registerd' };
+                const resendEmail = await resendOTP(user?.userId);
+                const data = {
+                    userId: user?.userId,
+                    userExist: true,
+                    email,
+                    otpVerificationMailSent: resendEmail && resendEmail?.status ? true : false,
+                    otpVerified: false,
+                };
+                return { status: true, message: 'Existing user', data };
             }
+        } else {
+            // User email doesn't exist
+            const newUser = await addNewUserInDB(email);
+            const sendEmail = await sendEmailWithOTP(email, newUser?.otp);
+            const data = {
+                userId: newUser?.userId,
+                userExist: false,
+                email,
+                otpVerificationMailSent: sendEmail && sendEmail?.status ? true : false,
+                otpVerified: false,
+            };
+            return { status: true, message: 'New user', data };
         }
     } catch (err) {
         console.log('Error in authService.checkUserEmail service', err);
@@ -43,25 +44,12 @@ const checkUserEmail = async (email) => {
     }
 };
 
-// Function which send email with otp to user
-const sendEmailWithOTP = async (email) => {
-    try {
-        const otp = Math.floor(100000 + Math.random() * 900000);
-        const addUserWithOTP = await addNewUserInDB(email, otp);
-        const emailBody = config?.Email_Config?.OTP_Verification_Email_Body?.replace('[otp]', otp);
-        const sendEmail = await sendEmailWithNodeMailer(email, emailBody);
-        return { sendEmail, userId: addUserWithOTP?.insertedId };
-    } catch (err) {
-        console.log('Error in authService.checkUserEmail service', err);
-        return { status: false, message: 'Error in service' };
-    }
-};
-
-// Function which adds new user to db
-const addNewUserInDB = async (email, otp) => {
+// Added by Vishal Jagamani, to add new user in db
+const addNewUserInDB = async (email) => {
     try {
         const lastDocument = await findLastDocument('User');
         const id = lastDocument && lastDocument?.length ? (lastDocument[0]._id += 1) : 1;
+        const otp = Math.floor(100000 + Math.random() * 900000);
         const document = {
             _id: id,
             userId: id,
@@ -73,7 +61,19 @@ const addNewUserInDB = async (email, otp) => {
             modifiedAt: Math.floor(Date.now() / 1000),
         };
         const addUserWithOTP = await insertOne('User', document);
-        return addUserWithOTP;
+        return { status: true, userId: addUserWithOTP?.insertedId, otp };
+    } catch (err) {
+        console.log('Error in authService.checkUserEmail service', err);
+        return { status: false, message: 'Error in service' };
+    }
+};
+
+// Function which send email with otp to user
+const sendEmailWithOTP = async (email, otp) => {
+    try {
+        const emailBody = config?.Email_Config?.OTP_Verification_Email_Body?.replace('[otp]', otp);
+        const sendEmail = await sendEmailWithNodeMailer(email, emailBody);
+        return { statu: true, emailSent: sendEmail && sendEmail?.status };
     } catch (err) {
         console.log('Error in authService.checkUserEmail service', err);
         return { status: false, message: 'Error in service' };
@@ -138,6 +138,7 @@ const verifyOTP = async (userId, otp) => {
 // Function to resend the otp for user
 const resendOTP = async (userId) => {
     try {
+        userId = parseInt(userId);
         const userDetails = await findOne('User', { userId: parseInt(userId) });
         if (userDetails) {
             const newOTP = Math.floor(100000 + Math.random() * 900000);
@@ -179,8 +180,8 @@ const userSignupDetails = async (req, res) => {
         };
         const updateUserDetails = await findOneAndUpdate('User', { userId }, updateQuery);
         if (updateUserDetails && updateUserDetails) {
-            const accessTokenExpiryTime = Math.floor(Date.now() / 1000);
-            const refreshTokenExpiresIn = Math.floor(Date.now() / 1000) + 604800;
+            const accessTokenExpiryTime = Math.floor(Date.now() / 1000) + config?.Access_Token_Expiry_Time;
+            const refreshTokenExpiresIn = Math.floor(Date.now() / 1000) + config?.Refresh_Token_Expiry_Time;
             const tokenData = {
                 userId,
                 firstName: updateUserDetails?.firstName,
@@ -188,7 +189,7 @@ const userSignupDetails = async (req, res) => {
                 email: updateUserDetails?.email || null,
                 isLoggedIn: true,
                 createdAt: Math.floor(Date.now() / 1000),
-                expiryTime: Math.floor(Date.now() / 1000) + 3600,
+                expiryTime: accessTokenExpiryTime,
             };
             const accessToken = await generateNewAccessToken(tokenData);
             const refreshToken = await generateNewRefreshToken(tokenData);

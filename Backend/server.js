@@ -25,14 +25,16 @@ dotenv?.config();
 const PORT = process.env.PORT || 8080;
 
 // Micro routes
+import authRoutes from './src/routes/auth/authRoutes.js';
 import demoRoutes from './src/routes/demoRoutes.js';
-import authRoutes from './src/routes/authRoutes.js';
+import spotifyUserRoutes from './src/routes/spotify/userRoutes.js';
 // Add rest of your micro routes here
 
 // Use micro routes
 app.use('/demo', demoRoutes);
 app.use('/auth', authRoutes);
-// Add rest of micro routes to put use in here
+app.use('/spotify', spotifyUserRoutes);
+// Add rest of micro routes to put use in here1
 
 // Test endpoint
 app.get('/testEndpoint', (req, res) => {
