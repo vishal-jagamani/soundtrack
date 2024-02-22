@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
-import { config } from '../../../config/config.js';
+import { Config } from '../../../config/config.js';
 import { generateNewAccessToken, generateNewRefreshToken } from '../../utils/jwt.js';
 import { findLastDocument, findOne, findOneAndUpdate, insertOne, updateOne } from '../mongodbService.js';
 
@@ -71,7 +71,7 @@ const addNewUserInDB = async (email) => {
 // Function which send email with otp to user
 const sendEmailWithOTP = async (email, otp) => {
     try {
-        const emailBody = config?.Email_Config?.OTP_Verification_Email_Body?.replace('[otp]', otp);
+        const emailBody = Config?.Email_Config?.OTP_Verification_Email_Body?.replace('[otp]', otp);
         const sendEmail = await sendEmailWithNodeMailer(email, emailBody);
         return { status: true, emailSent: sendEmail && sendEmail?.status };
     } catch (err) {
@@ -88,12 +88,12 @@ const sendEmailWithNodeMailer = async (email, emailBody) => {
             port: 465,
             secure: true,
             auth: {
-                user: config?.Email_Config?.Support_Email_Address,
-                pass: config?.Email_Config?.Support_Email_Address_Password,
+                user: Config?.Email_Config?.Support_Email_Address,
+                pass: Config?.Email_Config?.Support_Email_Address_Password,
             },
         });
         const mailOptions = {
-            from: config?.Email_Config?.Support_Email_Address,
+            from: Config?.Email_Config?.Support_Email_Address,
             to: email,
             subject: 'OTP Verification',
             html: emailBody,
@@ -148,7 +148,7 @@ const resendOTP = async (userId) => {
                 },
             };
             await findOneAndUpdate('User', { userId: parseInt(userId) }, updateQuery);
-            const emailBody = config?.Email_Config?.OTP_Verification_Email_Body?.replace('[otp]', newOTP);
+            const emailBody = Config?.Email_Config?.OTP_Verification_Email_Body?.replace('[otp]', newOTP);
             const sendEmail = await sendEmailWithNodeMailer(userDetails?.email, emailBody);
             if (sendEmail && sendEmail?.status) {
                 return { status: true, message: 'Resend otp mail sent' };
@@ -179,8 +179,8 @@ const userSignupDetails = async (req, res) => {
         };
         const updateUserDetails = await findOneAndUpdate('User', { userId }, updateQuery);
         if (updateUserDetails && updateUserDetails) {
-            const accessTokenExpiryTime = Math.floor(Date.now() / 1000) + config?.Access_Token_Expiry_Time;
-            const refreshTokenExpiresIn = Math.floor(Date.now() / 1000) + config?.Refresh_Token_Expiry_Time;
+            const accessTokenExpiryTime = Math.floor(Date.now() / 1000) + Config?.Access_Token_Expiry_Time;
+            const refreshTokenExpiresIn = Math.floor(Date.now() / 1000) + Config?.Refresh_Token_Expiry_Time;
             const tokenData = {
                 userId,
                 firstName: firstName,
@@ -192,10 +192,13 @@ const userSignupDetails = async (req, res) => {
             };
             const accessToken = await generateNewAccessToken(tokenData);
             const refreshToken = await generateNewRefreshToken(tokenData);
-            res?.setHeader('Authorization', `Bearer ${accessToken?.accessToken}`);
-            res?.setHeader('X-Refresh-Token', refreshToken?.refreshToken);
-            res?.setHeader('X-Access-Token-Expiry', accessTokenExpiryTime);
-            res?.setHeader('X-Refresh-Token-Expiry', refreshTokenExpiresIn);
+            const headers = {
+                Authorization: `Bearer ${accessToken?.accessToken}`,
+                'X-Refresh-Token': refreshToken?.refreshToken,
+                'X-Access-Token-Expiry': accessTokenExpiryTime,
+                'X-Refresh-Token-Expiry': refreshTokenExpiresIn,
+            };
+            res?.set(headers);
             return res?.status(200)?.send({ status: true, message: 'User details registered successfully' });
         } else {
             return res?.status(200)?.send({ status: false, message: 'User details not registered' });

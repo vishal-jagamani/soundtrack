@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { config } from '../../config/config.js';
+import { Config } from '../../config/config.js';
 
 const demo = async (demo) => {
     try {
         1;
         console.log('Demo service', demo);
         const options = {
-            url: `${config?.demoAPIURL}/fact`,
+            url: `${Config?.demoAPIURL}/fact`,
             method: 'GET',
         };
         const data = await axios(options);
