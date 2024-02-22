@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 // Load environment variables from .env file
 dotenv?.config();
 
-export const config = {
+export const Config = {
     config: 'config',
     demoAPIURL: 'https://catfact.ninja',
     Base_URL: process?.env?.SOUNDTRACK_BASE_URL,
