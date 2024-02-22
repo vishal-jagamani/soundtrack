@@ -112,7 +112,7 @@ const verifyOTP = async (userId, otp) => {
         const document = await findOne('User', { userId });
         if (document) {
             // Check if the OTP is correct
-            if (otp === document?.otp) {
+            if (parseInt(otp) === document?.otp) {
                 // Check if the OTP is still valid (within 3 minutes)
                 const currentTimestamp = Math.floor(Date.now() / 1000);
                 if (currentTimestamp - document?.otpTimestamp <= 180) {
