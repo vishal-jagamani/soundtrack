@@ -73,7 +73,7 @@ const sendEmailWithOTP = async (email, otp) => {
     try {
         const emailBody = config?.Email_Config?.OTP_Verification_Email_Body?.replace('[otp]', otp);
         const sendEmail = await sendEmailWithNodeMailer(email, emailBody);
-        return { statu: true, emailSent: sendEmail && sendEmail?.status };
+        return { status: true, emailSent: sendEmail && sendEmail?.status };
     } catch (err) {
         console.log('Error in authService.checkUserEmail service', err);
         return { status: false, message: 'Error in service' };
@@ -138,7 +138,6 @@ const verifyOTP = async (userId, otp) => {
 // Function to resend the otp for user
 const resendOTP = async (userId) => {
     try {
-        userId = parseInt(userId);
         const userDetails = await findOne('User', { userId: parseInt(userId) });
         if (userDetails) {
             const newOTP = Math.floor(100000 + Math.random() * 900000);
@@ -184,8 +183,8 @@ const userSignupDetails = async (req, res) => {
             const refreshTokenExpiresIn = Math.floor(Date.now() / 1000) + config?.Refresh_Token_Expiry_Time;
             const tokenData = {
                 userId,
-                firstName: updateUserDetails?.firstName,
-                lastName: updateUserDetails?.lastName,
+                firstName: firstName,
+                lastName: lastName,
                 email: updateUserDetails?.email || null,
                 isLoggedIn: true,
                 createdAt: Math.floor(Date.now() / 1000),

@@ -2,6 +2,8 @@ import cryptojs from 'crypto-js';
 import queryString from 'querystring';
 import { Secrets, Spotify_Config, config } from '../../../config/config.js';
 import { storeUserAccessTokenFromCode } from './spotifyService.js';
+import { findOne } from '../mongodbService.js';
+import axios from 'axios';
 
 // Function to link the user's spotify account to app and get user's spotify functionality access
 const linkSpotifyAccount = async (req, res) => {
@@ -69,12 +71,19 @@ const verifyOAuthState = async (state) => {
 // Function to search items from spotify
 export const spotifySearch = async (details) => {
     try {
-        const { searchText, searchItems, limit, offset } = details;
-        searchItems = searchItems ? searchItems : Spotify_Config?.Search_Items_Type;
-        limit = limit ? parseInt(limit) : 10;
-        offset = offset ? parseInt(offset) : 0;
-        const url = `${Spotify_Config?.API_Base_URL}/search?q=${searchText}&type=${searchItems}&limit=${limit}&offset=${offset}`;
-        const response = await spotifyGET(url);
+        let { userId, searchText, searchItems, limit, offset } = details;
+        const tokenDetails = await findOne('Spotify', { _id: 'Spotify_Access_Token' });
+        if (tokenDetails) {
+            searchItems = searchItems ? searchItems : Spotify_Config?.Search_Items_Type;
+            limit = limit ? parseInt(limit) : 10;
+            offset = offset ? parseInt(offset) : 0;
+            const url = `${Spotify_Config?.API_Base_URL}/search?q=${searchText}&type=${searchItems}&limit=${limit}&offset=${offset}`;
+            const options = { url, method: 'GET', headers: { Authorization: `Bearer ${tokenDetails?.Access_Token}` } };
+            const response = await axios(options);
+            return response?.data;
+        } else {
+            return { status: false, message: 'Spotify access token not found' };
+        }
     } catch (err) {
         console.log('Error in userService.spotifySearch service', err);
         return { status: false, message: 'Error in service' };

@@ -103,12 +103,12 @@ const findOneAndUpdate = async (collection, filter, updateQuery, options) => {
 };
 
 // MongoDB service to update one document
-const updateOne = async (collection, query, filter, options) => {
+const updateOne = async (collection, updateQuery, filter, options) => {
     const client = new MongoClient(connectionString);
     try {
         const database = client.db(mongodbDatabase);
         const dbCollection = database.collection(collection);
-        const data = await dbCollection.updateOne(filter, query);
+        const data = await dbCollection.updateOne(filter, updateQuery);
         console.log(data);
         return data;
     } catch (err) {
