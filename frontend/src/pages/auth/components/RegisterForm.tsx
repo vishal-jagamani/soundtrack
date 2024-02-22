@@ -4,7 +4,7 @@ import { Form } from '@/components/ui/form'
 import { toast } from '@/components/ui/use-toast'
 import { useUserSignUpMutation } from '@/contexts/api/authApiService'
 import { RootState } from '@/contexts/store/store'
-import { useLocalStorage } from '@/utils/customHooks/useLocalStorage'
+// import { useLocalStorage } from '@/utils/customHooks/useLocalStorage'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ReloadIcon } from '@radix-ui/react-icons'
 import { motion } from 'framer-motion'
@@ -39,9 +39,9 @@ const formSchema = z
 
 const RegisterForm: FC = ({}) => {
   const { user } = useSelector((state: RootState) => state.authData)
-  const [TriggerSignUp, { data, isLoading }] = useUserSignUpMutation()
+  const [TriggerSignUp, { isLoading }] = useUserSignUpMutation()
   const navigate = useNavigate()
-  const [, setLocalStorage] = useLocalStorage('user')
+  // const [, setLocalStorage] = useLocalStorage('user')
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
