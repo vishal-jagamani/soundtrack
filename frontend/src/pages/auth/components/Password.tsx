@@ -34,7 +34,7 @@ const Password: FC = ({}) => {
       if (response?.status) {
         navigate('/')
       } else {
-        throw new Error('Something went wrong!')
+        setErrors(`Password doesn't match`)
       }
     } catch (error) {
       toast({
