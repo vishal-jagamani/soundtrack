@@ -1,14 +1,13 @@
 import { soundtrackApi } from '../store/slice'
-import { EmailVerifyData, EmailVerifyPost, OtpVerifyPost } from './apiTypes'
+import { EmailVerifyData, EmailVerifyPost, OtpVerifyPost, UserPostData, UserSignUp } from './apiTypes'
 
-export const generalApiService = soundtrackApi.injectEndpoints({
+export const backupApiService = soundtrackApi.injectEndpoints({
   endpoints: builder => ({
     getRequest: builder.query({
       query: getQuery => ({
         url: getQuery,
       }),
     }),
-
     checkEmailAddress: builder.mutation<EmailVerifyData, EmailVerifyPost>({
       query: payload => ({
         url: '/checkUserEmail',
@@ -30,6 +29,20 @@ export const generalApiService = soundtrackApi.injectEndpoints({
         body: payload,
       }),
     }),
+    userSignUp: builder.mutation<UserSignUp, UserPostData>({
+      query: payload => ({
+        url: '/userSignup',
+        method: 'POST',
+        body: payload,
+      }),
+      transformResponse: (response: EmailVerifyData, meta: any) => {
+        const token = meta.response.headers.get('Authorization')
+        // const token = meta
+        const data = response
+        return { data, token }
+      },
+    }),
   }),
 })
-export const { useGetRequestQuery, useCheckEmailAddressMutation, useVerifyOTPMutation, useResendOTPMutation } = generalApiService
+export const { useGetRequestQuery, useCheckEmailAddressMutation, useVerifyOTPMutation, useResendOTPMutation, useUserSignUpMutation } =
+  backupApiService
