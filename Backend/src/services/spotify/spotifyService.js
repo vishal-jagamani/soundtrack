@@ -1,22 +1,19 @@
 import axios from 'axios';
 import queryString from 'querystring';
-import { Secrets, Spotify_Config, config } from '../../../config/config.js';
-import { findOneAndUpdate } from '../mongodbService.js';
+import { Secrets, Spotify_Config } from '../../../config/config.js';
+import { findOne, findOneAndUpdate } from '../mongodbService.js';
 
 // Get user access token from code after oauth access by user
 const storeUserAccessTokenFromCode = async (stateDetails, code) => {
     try {
         if (code) {
             const { userId, name, email } = stateDetails;
-            // const postData = new URLSearchParams();
             const postData = queryString?.stringify({
                 grant_type: 'authorization_code',
                 // redirect_uri: `${config?.Base_URL}${Spotify_Config?.OAuth_Redirect_URI}`,
                 redirect_uri: `http://localhost:8020/spotify/oauthCallback`,
                 code,
             });
-            // postData?.append('redirect_uri', 'http://localhost:8020/user/spotifyOAuthCallback');
-            // postData?.append('redirect_uri', 'http://localhost:8020/user/spotifyOAuthCallback');
             const options = {
                 url: `${Spotify_Config?.API_TOKEN_URL}`,
                 method: 'POST',
@@ -61,4 +58,31 @@ const storeUserAccessTokenFromCode = async (stateDetails, code) => {
     }
 };
 
-export { storeUserAccessTokenFromCode };
+// Function to refresh the spotify access token from client credentials
+const getSpotifyAccessToken = async () => {
+    try {
+        const tokenDetails = await findOne('Spotify', { _id: 'Spotify_Access_Token' });
+        if (tokenDetails) {
+        } else {
+            // No token, create and add new one
+        }
+    } catch (err) {
+        console.log('Error in spotifyService.refreshSpotifyAccessToken service', err);
+        throw err;
+    }
+};
+
+// Function to refresh the access token from refresh token
+const refreshSpotifyUserAccessToken = async (refreshToken) => {
+    try {
+        if (refreshToken) {
+        } else {
+            return { status: false, message: 'Refresh token not found' };
+        }
+    } catch (err) {
+        console.log('Error in spotifyService.refreshSpotifyAccessToken service', err);
+        throw err;
+    }
+};
+
+export { getSpotifyAccessToken, refreshSpotifyUserAccessToken, storeUserAccessTokenFromCode };

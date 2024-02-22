@@ -30,7 +30,7 @@ router.get('/oauthCallback', async (req, res) => {
 router.post('/search', async (req, res) => {
     try {
         const response = await spotifySearch(req.body);
-        return response;
+        res.status(200).send(response);
     } catch (err) {
         res.status(500).send(err);
     }
