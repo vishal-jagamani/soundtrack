@@ -109,7 +109,6 @@ const updateOne = async (collection, updateQuery, filter, options) => {
         const database = client.db(mongodbDatabase);
         const dbCollection = database.collection(collection);
         const data = await dbCollection.updateOne(filter, updateQuery, options);
-        console.log(data);
         return data;
     } catch (err) {
         console.log('Error in mongodbService.findOne service', err);

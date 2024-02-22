@@ -1,1 +1,2 @@
-export const BASE_URL: string = 'https://soundtrack-streamhub.koyeb.app/auth'
+export const BASE_URL: string = import.meta.env.VITE_APP_BASE_URL
+export const AUTH_BASE_URL: string = import.meta.env.VITE_APP_AUTH_BASE_URL
