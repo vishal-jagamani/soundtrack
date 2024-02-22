@@ -108,8 +108,7 @@ const updateOne = async (collection, updateQuery, filter, options) => {
     try {
         const database = client.db(mongodbDatabase);
         const dbCollection = database.collection(collection);
-        const data = await dbCollection.updateOne(filter, updateQuery);
-        console.log(data);
+        const data = await dbCollection.updateOne(filter, updateQuery, options);
         return data;
     } catch (err) {
         console.log('Error in mongodbService.findOne service', err);
@@ -118,6 +117,25 @@ const updateOne = async (collection, updateQuery, filter, options) => {
         // Ensures that the client will close when you finish/error
         await client.close();
     }
+};
+
+// MongoDB service to update or insert one document
+const updateOrInsertOne = async (collection) => {
+    const client = new MongoClient(connectionString);
+    try {
+        const database = client.db(mongodbDatabase);
+        const dbCollection = database.collection(collection);
+        const data = await dbCollection.upda(filter, updateQuery);
+        console.log(data);
+        return data;
+    } catch (err) {
+        console.log('Error in mongodbService.updateOrInsertOne service', err);
+        throw err;
+    } finally {
+        // Ensures that the client will close when you finish/error
+        await client.close();
+    }
+    y;
 };
 
 // MongoDB service to get data
@@ -139,4 +157,4 @@ const GET = async () => {
     }
 };
 
-export { GET, findLastDocument, findOne, findOneAndUpdate, insertOne, testDBConnection, updateOne };
+export { GET, findLastDocument, findOne, findOneAndUpdate, insertOne, testDBConnection, updateOne, updateOrInsertOne };

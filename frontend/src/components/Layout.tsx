@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import Sidebar from './sidebar'
 import { Outlet } from 'react-router'
+import { Toaster } from './ui/toaster'
 
 const Layout: FC = () => {
   return (
@@ -9,6 +10,7 @@ const Layout: FC = () => {
       <div className='px-6 py-8'>
         <Outlet />
       </div>
+      <Toaster />
     </div>
   )
 }
