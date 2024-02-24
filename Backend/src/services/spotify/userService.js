@@ -2,6 +2,7 @@ import CryptoJS from 'crypto-js';
 import queryString from 'querystring';
 import { Secrets, Spotify_Config, Config, Spotify_Response_Mapping } from '../../../config/config.js';
 import { spotifyGET, storeUserAccessTokenFromCode } from './spotifyService.js';
+import { forEachLimit } from 'async';
 
 // Function to link the user's spotify account to app and get user's spotify functionality access
 const linkSpotifyAccount = async (req, res) => {
@@ -88,18 +89,34 @@ export const formatSpotifySearchData = async (rawData) => {
     try {
         if (rawData) {
             rawData = JSON.parse(JSON.stringify(rawData));
-            const artists = { href: rawData?.artists?.href, total: rawData?.artists?.total };
-            const artistItems = rawData?.artists?.items?.map((item) => {
-                return Object.keys(item).reduce((newObj, key) => {
-                    if (Spotify_Response_Mapping?.Search?.Artist[key]) {
-                        newObj[Spotify_Response_Mapping?.Search?.Artist[key]] = item[key];
+            const data = {};
+            await forEachLimit(Object.values(rawData), 1, async (item) => {
+                try {
+                    if (item && item?.items && item?.items?.length && item?.items?.[0]?.type) {
+                        const type = item?.items?.[0]?.type;
+                        const result = {
+                            href: item?.href,
+                            totalCount: item?.total,
+                            limit: item?.limit,
+                            offset: item?.offset,
+                            previous: item?.previous,
+                        };
+                        const items = item?.items?.map((val) => {
+                            return Object.keys(val).reduce((newObj, key) => {
+                                if (Spotify_Response_Mapping?.Search?.[type]?.[key]) {
+                                    newObj[Spotify_Response_Mapping?.Search?.[type]?.[key]] = val[key];
+                                }
+                                return newObj;
+                            }, {});
+                        });
+                        result.items = items;
+                        data[`${type}s`] = result;
                     }
-                    return newObj;
-                }, {});
+                } catch (err) {
+                    console.log('Error in userService.formatSpotifySearchData async.forEachLimit service', err);
+                }
             });
-            artists.items = artistItems;
-            rawData.artists = artists;
-            return { status: true, message: 'Spotify search data', data: rawData };
+            return { status: true, message: 'Spotify search data', data };
         } else {
             return { status: true, message: 'Raw data not found' };
         }
