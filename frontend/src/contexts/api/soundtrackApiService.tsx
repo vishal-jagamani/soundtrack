@@ -1,5 +1,5 @@
 import { soundtrackApi } from '../store/slice'
-import { GetDataType } from './apiTypes'
+import { GetDataType, SearchInputPost } from './apiTypes'
 
 export const soundtrackApiService = soundtrackApi.injectEndpoints({
   endpoints: builder => ({
@@ -8,6 +8,13 @@ export const soundtrackApiService = soundtrackApi.injectEndpoints({
         url: getQuery,
       }),
     }),
+    searchInput: builder.mutation<GetDataType, SearchInputPost>({
+      query: payload => ({
+        url: '/search',
+        method: 'POST',
+        body: payload,
+      }),
+    }),
   }),
 })
-export const { useGetRequestQuery } = soundtrackApiService
+export const { useGetRequestQuery, useSearchInputMutation } = soundtrackApiService

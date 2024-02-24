@@ -10,7 +10,7 @@ const Layout: FC = () => {
   return (
     <div className='grid grid-cols-[280px_minmax(900px,_1fr)]'>
       <Sidebar />
-      <div className='px-6 py-8'>
+      <div className='px-6 py-8 max-w-screen-xl mx-auto w-full overflow-x-hidden'>
         <Outlet />
       </div>
       <Toaster />
