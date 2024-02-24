@@ -194,9 +194,9 @@ const userSignupDetails = async (req, res) => {
             const refreshToken = await generateNewRefreshToken(tokenData);
             const headers = {
                 Authorization: `Bearer ${accessToken?.accessToken}`,
-                'X-Refresh-Token': refreshToken?.refreshToken,
-                'X-Access-Token-Expiry': accessTokenExpiryTime,
-                'X-Refresh-Token-Expiry': refreshTokenExpiresIn,
+                'x-refresh-token': refreshToken?.refreshToken,
+                'x-access-token-expiry': accessTokenExpiryTime,
+                'x-refresh-token-expiry': refreshTokenExpiresIn,
             };
             res?.set(headers);
             const exposedHeaders = Object.keys(headers).join(', ');
@@ -237,9 +237,9 @@ const userLogin = async (req, res) => {
                         const refreshToken = await generateNewRefreshToken(tokenData);
                         const headers = {
                             Authorization: `Bearer ${accessToken?.accessToken}`,
-                            'X-Refresh-Token': refreshToken?.refreshToken,
-                            'X-Access-Token-Expiry': accessTokenExpiryTime,
-                            'X-Refresh-Token-Expiry': refreshTokenExpiresIn,
+                            'x-refresh-token': refreshToken?.refreshToken,
+                            'x-access-token-expiry': accessTokenExpiryTime,
+                            'x-refresh-token-expiry': refreshTokenExpiresIn,
                         };
                         // res.setHeader('Authorization', `Bearer ${accessToken?.accessToken}`);
                         // res.setHeader('X-Refresh-Token', refreshToken?.refreshToken);
