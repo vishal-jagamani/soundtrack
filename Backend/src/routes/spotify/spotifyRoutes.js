@@ -1,12 +1,18 @@
 import express from 'express';
 const router = express.Router();
 
+// Micro routes
+import artistRoutes from './artistRoutes.js';
+
 // Services
 import { linkSpotifyAccount, oauthCallback, spotifySearch } from '../../services/spotify/userService.js';
 import { verifyAccessToken } from '../../utils/jwt.js';
 
 // Middleware to handle authentication
 router.use(verifyAccessToken);
+
+// Use micro routes
+router.use('/artists', artistRoutes);
 
 // Micro routes
 router.get('/linkSpotifyAccount', async (req, res) => {

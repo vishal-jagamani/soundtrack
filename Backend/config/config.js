@@ -49,6 +49,18 @@ export const Spotify_Config = {
 };
 
 export const Spotify_Response_Mapping = {
+    Artist: {
+        id: 'id',
+        uri: 'uri',
+        name: 'name',
+        type: 'type',
+        popularity: 'popularity',
+        followers: 'followers',
+        href: 'href',
+        external_urls: 'externalURLs',
+        images: 'images',
+        genres: 'genres',
+    },
     Search: {
         album: {
             id: 'id',
