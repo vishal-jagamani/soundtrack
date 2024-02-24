@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { loginSuccess, logout } from '@/pages/auth/slice/authSlice'
+import { logout } from '@/pages/auth/slice/authSlice'
 export const useLocalStorage = (keyName: string) => {
   const dispatch = useDispatch()
   const [storedValue, setStoredValue] = useState(() => {
@@ -8,7 +8,7 @@ export const useLocalStorage = (keyName: string) => {
       const value = window.localStorage.getItem(keyName) ?? '{}'
       const parsedData = JSON.parse(value)
       if (parsedData) {
-        dispatch(loginSuccess(parsedData))
+        // dispatch(loginSuccess(parsedData))
         return parsedData
       }
     } catch (err) {
@@ -22,7 +22,7 @@ export const useLocalStorage = (keyName: string) => {
     } else {
       try {
         window.localStorage.setItem(keyName, JSON.stringify(newValue))
-        dispatch(loginSuccess(newValue))
+        // dispatch(loginSuccess(newValue))
         setStoredValue(newValue)
       } catch (err) {}
     }

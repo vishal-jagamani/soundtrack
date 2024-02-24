@@ -1,7 +1,7 @@
-import { soundtrackApi } from '../store/slice'
+import { authApi } from '../store/slice'
 import { EmailVerifyData, EmailVerifyPost, OtpVerifyPost, UserLoginPost, UserPostData, UserSignUp } from './apiTypes'
 
-export const authApiService = soundtrackApi.injectEndpoints({
+export const authApiService = authApi.injectEndpoints({
   endpoints: builder => ({
     getRequest: builder.query({
       query: getQuery => ({
@@ -42,12 +42,12 @@ export const authApiService = soundtrackApi.injectEndpoints({
         method: 'POST',
         body: payload,
       }),
-      transformResponse: (response: EmailVerifyData, meta: any) => {
-        const token = meta.response.headers.get('Authorization')
-        // const token = meta
-        const data = response
-        return { data, token }
-      },
+      // transformResponse: (response: EmailVerifyData, meta: any) => {
+      //   const token = meta.response.headers.get('Authorization')
+      //   // const token = meta
+      //   const data = response
+      //   return { data, token }
+      // },
     }),
   }),
 })
