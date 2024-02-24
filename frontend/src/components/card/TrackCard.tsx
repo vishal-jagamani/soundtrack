@@ -1,15 +1,20 @@
-import PATTERN_IMAGE from '@/assets/images/sign_up_pattern.png'
 import { FC } from 'react'
 import { Card, CardDescription, CardHeader, CardTitle } from '../ui/card'
-const TrackCard: FC = () => {
+interface TrackCardProps {
+  data: any
+}
+
+const TrackCard: FC<TrackCardProps> = ({ data }) => {
+  // console.log('🚀 ~ data:', data)
+  const IMAGE = data?.images?.[1]
   return (
     <>
-      <Card className='hover:bg-accent bg-background-highlight cursor-pointer transition-all'>
-        <CardHeader className='space-y-4'>
-          <img src={PATTERN_IMAGE} alt='Track-image' className='h-28' />
+      <Card className='hover:bg-accent bg-background-highlight cursor-pointer transition-all min-w-48'>
+        <CardHeader className='space-y-4 p-4'>
+          <img src={IMAGE?.url} alt='Track-image' className='h-40 object-cover' />
           <div>
-            <CardTitle>Hot Daily Mix</CardTitle>
-            <CardDescription className='text-xs mt-2'>Hottest Hindi music served here. Cover - Animal</CardDescription>
+            <CardTitle className='line-clamp-1'>{data?.name}</CardTitle>
+            <CardDescription className='text-xs mt-2'>{data?.release_date?.split('-')[0]}</CardDescription>
           </div>
         </CardHeader>
         {/* <CardContent>

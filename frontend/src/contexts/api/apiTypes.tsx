@@ -38,3 +38,6 @@ export interface GetDataType {
   status: string
   message: string
 }
+export interface SearchInputPost {
+  searchText: string
+}
