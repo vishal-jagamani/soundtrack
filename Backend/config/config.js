@@ -48,6 +48,23 @@ export const Spotify_Config = {
     // Search_Items_Type: 'artist,track,playlist,album,show,episode,audiobook',
 };
 
+export const Spotify_Response_Mapping = {
+    Search: {
+        Artist: {
+            id: 'id',
+            uri: 'uri',
+            name: 'name',
+            type: 'type',
+            images: 'images',
+            href: 'href',
+            genres: 'genres',
+            followers: 'followers',
+            external_urls: 'externalURLs',
+        },
+        Track: {},
+    },
+};
+
 export const Error_Responses = {
     Missing_Token: {
         error: {
@@ -56,6 +73,16 @@ export const Error_Responses = {
             details: {
                 reason: 'Missing authentication token',
                 resolution: 'Please include a valid authentication token in the request headers to access the requested resource.',
+            },
+        },
+    },
+    Refresh_Token_Expired: {
+        error: {
+            code: 401,
+            message: 'Unauthorized',
+            details: {
+                reason: 'Refresh token expired',
+                resolution: 'Please request a new access token using valid credentials to access the requested resource.',
             },
         },
     },
