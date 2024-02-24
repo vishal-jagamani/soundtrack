@@ -21,7 +21,7 @@ export const Config = {
     },
     Access_Token_Expiry_Time: 3600,
     Refresh_Token_Expiry_Time: 604800,
-    JWT_Access_Token_Expiry_Time: '1m',
+    JWT_Access_Token_Expiry_Time: '15m',
     JWT_Refresh_Token_Expiry_Time: '7d',
 };
 
@@ -44,24 +44,62 @@ export const Spotify_Config = {
     User_Scope: 'user-read-private user-read-email',
     API_TOKEN_URL: 'https://accounts.spotify.com/api/token',
     API_Base_URL: 'https://api.spotify.com/v1',
-    Search_Items_Type: 'artist,track,playlist,album,show,episode,audiobook',
+    Search_Items_Type: 'artist,track,playlist,album',
     // Search_Items_Type: 'artist,track,playlist,album,show,episode,audiobook',
 };
 
 export const Spotify_Response_Mapping = {
     Search: {
-        Artist: {
+        album: {
             id: 'id',
             uri: 'uri',
             name: 'name',
             type: 'type',
-            images: 'images',
+            total_tracks: 'totalTracks',
+            release_date: 'releaseDate',
             href: 'href',
-            genres: 'genres',
+            external_urls: 'externalURLs',
+            images: 'images',
+        },
+        artist: {
+            id: 'id',
+            uri: 'uri',
+            name: 'name',
+            type: 'type',
+            popularity: 'popularity',
             followers: 'followers',
+            href: 'href',
+            external_urls: 'externalURLs',
+            images: 'images',
+        },
+        track: {
+            id: 'id',
+            uri: 'uri',
+            name: 'name',
+            type: 'type',
+            popularity: 'popularity',
+            disc_number: 'discNumber',
+            track_number: 'trackNumber',
+            duration_ms: 'durationMs',
+            preview_url: 'previewURL',
+            href: 'href',
             external_urls: 'externalURLs',
         },
-        Track: {},
+        playlist: {
+            id: 'id',
+            uri: 'uri',
+            name: 'name',
+            type: 'type',
+            description: 'description',
+            tracks: 'tracks',
+            collaborative: 'collaborative',
+            primary_color: 'primaryColor',
+            snapshot_id: 'snapshotId',
+            href: 'href',
+            external_urls: 'externalURLs',
+            owner: 'owner',
+            images: 'images',
+        },
     },
 };
 
