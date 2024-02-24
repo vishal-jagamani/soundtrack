@@ -1,7 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { soundtrackApi } from './slice'
+import { Middleware, configureStore } from '@reduxjs/toolkit'
+import { authApi, soundtrackApi } from './slice'
 import soundtrack from '../reducers/soundtrack'
 import authSlice from '../../pages/auth/slice/authSlice'
+import { authMiddleware } from '@/utils/hof/Middleware'
 
 export const store = configureStore({
   reducer: {
@@ -9,13 +10,14 @@ export const store = configureStore({
     generalData: soundtrack,
     authData: authSlice,
     [soundtrackApi.reducerPath]: soundtrackApi.reducer,
+    [authApi.reducerPath]: authApi.reducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       immutableCheck: { warnAfter: 128 },
       serializableCheck: false,
-    }).concat([soundtrackApi.middleware]),
+    }).concat([soundtrackApi.middleware, authApi.middleware, authMiddleware as Middleware]),
   devTools: true,
 })
 

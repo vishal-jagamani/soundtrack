@@ -33,3 +33,8 @@ export interface UserPostData {
   password: string
   confirmPassword: string
 }
+export interface GetDataType {
+  data: any
+  status: string
+  message: string
+}
