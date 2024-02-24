@@ -6,7 +6,7 @@ import { linkSpotifyAccount, oauthCallback, spotifySearch } from '../../services
 import { verifyAccessToken } from '../../utils/jwt.js';
 
 // Middleware to handle authentication
-// router.use(verifyAccessToken);
+router.use(verifyAccessToken);
 
 // Micro routes
 router.get('/linkSpotifyAccount', async (req, res) => {

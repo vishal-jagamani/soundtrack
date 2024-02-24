@@ -1,6 +1,6 @@
 import CryptoJS from 'crypto-js';
 import queryString from 'querystring';
-import { Secrets, Spotify_Config, Config } from '../../../config/config.js';
+import { Secrets, Spotify_Config, Config, Spotify_Response_Mapping } from '../../../config/config.js';
 import { spotifyGET, storeUserAccessTokenFromCode } from './spotifyService.js';
 
 // Function to link the user's spotify account to app and get user's spotify functionality access
@@ -76,9 +76,35 @@ export const spotifySearch = async (details) => {
         offset = offset ? parseInt(offset) : 0;
         const url = `${Spotify_Config?.API_Base_URL}/search?q=${searchText}&type=${searchItems}&limit=${limit}&offset=${offset}`;
         const response = await spotifyGET(url);
-        return response?.data;
+        const formattedData = await formatSpotifySearchData(response?.data);
+        return formattedData;
     } catch (err) {
         console.log('Error in userService.spotifySearch service', err);
+        return { status: false, message: 'Error in service' };
+    }
+};
+
+export const formatSpotifySearchData = async (rawData) => {
+    try {
+        if (rawData) {
+            rawData = JSON.parse(JSON.stringify(rawData));
+            const artists = { href: rawData?.artists?.href, total: rawData?.artists?.total };
+            const artistItems = rawData?.artists?.items?.map((item) => {
+                return Object.keys(item).reduce((newObj, key) => {
+                    if (Spotify_Response_Mapping?.Search?.Artist[key]) {
+                        newObj[Spotify_Response_Mapping?.Search?.Artist[key]] = item[key];
+                    }
+                    return newObj;
+                }, {});
+            });
+            artists.items = artistItems;
+            rawData.artists = artists;
+            return { status: true, message: 'Spotify search data', data: rawData };
+        } else {
+            return { status: true, message: 'Raw data not found' };
+        }
+    } catch (err) {
+        console.log('Error in userService.formatSpotifySearchData service', err);
         return { status: false, message: 'Error in service' };
     }
 };
