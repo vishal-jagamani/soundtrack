@@ -199,6 +199,8 @@ const userSignupDetails = async (req, res) => {
                 'X-Refresh-Token-Expiry': refreshTokenExpiresIn,
             };
             res?.set(headers);
+            const exposedHeaders = Object.keys(headers).join(', ');
+            res?.set('Access-Control-Expose-Headers', exposedHeaders);
             return res?.status(200)?.send({ status: true, message: 'User details registered successfully' });
         } else {
             return res?.status(200)?.send({ status: false, message: 'User details not registered' });
@@ -233,10 +235,19 @@ const userLogin = async (req, res) => {
                         };
                         const accessToken = await generateNewAccessToken(tokenData);
                         const refreshToken = await generateNewRefreshToken(tokenData);
-                        res.setHeader('Authorization', `Bearer ${accessToken?.accessToken}`);
-                        res.setHeader('X-Refresh-Token', refreshToken?.refreshToken);
-                        res.setHeader('X-Access-Token-Expiry', accessTokenExpiryTime);
-                        res.setHeader('X-Refresh-Token-Expiry', refreshTokenExpiresIn);
+                        const headers = {
+                            Authorization: `Bearer ${accessToken?.accessToken}`,
+                            'X-Refresh-Token': refreshToken?.refreshToken,
+                            'X-Access-Token-Expiry': accessTokenExpiryTime,
+                            'X-Refresh-Token-Expiry': refreshTokenExpiresIn,
+                        };
+                        // res.setHeader('Authorization', `Bearer ${accessToken?.accessToken}`);
+                        // res.setHeader('X-Refresh-Token', refreshToken?.refreshToken);
+                        // res.setHeader('X-Access-Token-Expiry', accessTokenExpiryTime);
+                        // res.setHeader('X-Refresh-Token-Expiry', refreshTokenExpiresIn);
+                        res?.set(headers);
+                        const exposedHeaders = Object.keys(headers).join(', ');
+                        res?.set('Access-Control-Expose-Headers', exposedHeaders);
                         return res?.status(200)?.send({ status: true, message: 'Login successfull' });
                     } else {
                         return res?.status(200)?.send({ status: false, message: 'Wrong password' });
