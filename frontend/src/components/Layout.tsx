@@ -3,6 +3,7 @@ import Sidebar from './sidebar'
 import { Outlet } from 'react-router'
 import { Toaster } from './ui/toaster'
 import Navbar from './navbar'
+import Banner from './banner'
 // import { useAuth } from '@/utils/hof/AuthContext'
 
 const Layout: FC = () => {
@@ -17,6 +18,7 @@ const Layout: FC = () => {
           <Outlet />
         </div>
         <Toaster />
+        <Banner />
       </div>
     </>
   )

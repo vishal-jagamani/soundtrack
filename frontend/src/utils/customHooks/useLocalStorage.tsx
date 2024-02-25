@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { logout } from '@/pages/auth/slice/authSlice'
+// import { useDispatch } from 'react-redux'
+// import { logout } from '@/pages/auth/slice/authSlice'
 export const useLocalStorage = (keyName: string) => {
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const [storedValue, setStoredValue] = useState(() => {
     try {
-      const value = window.localStorage.getItem(keyName) ?? '{}'
-      const parsedData = JSON.parse(value)
+      const value = window.localStorage.getItem(keyName)
+      const parsedData = value ?? ''
       if (parsedData) {
         // dispatch(loginSuccess(parsedData))
         return parsedData
@@ -18,7 +18,7 @@ export const useLocalStorage = (keyName: string) => {
   const setValue = (newValue: any) => {
     if (newValue == 'logout') {
       window.localStorage.clear()
-      dispatch(logout())
+      // dispatch(logout())
     } else {
       try {
         window.localStorage.setItem(keyName, JSON.stringify(newValue))
