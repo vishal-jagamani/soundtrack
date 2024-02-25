@@ -11,9 +11,9 @@ const Layout: FC = () => {
   return (
     <>
       <Navbar />
-      <div className='grid grid-cols-1 md:grid-cols-[auto,1fr] mt-12'>
+      <div className='mt-14 grid grid-cols-1 md:grid-cols-[auto,1fr]'>
         <Sidebar />
-        <div className='px-6 pt-4 max-w-screen-xl mx-auto w-full overflow-x-hidden'>
+        <div className='mx-auto w-full max-w-screen-xl overflow-x-hidden px-6 pt-4'>
           <Outlet />
         </div>
         <Toaster />

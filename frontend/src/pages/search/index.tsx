@@ -33,11 +33,11 @@ const Search: FC = () => {
     <div className='space-y-4 '>
       {/* Search */}
       <Input type='text' placeholder='Search' onChange={e => handleChange(e)} />
-      <div className='flex space-x-6 overflow-auto no-scrollbar'>
+      <div className='no-scrollbar flex space-x-6 overflow-auto'>
         {isLoading ? (
           <div className='grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible'>
             <svg
-              className='text-primary animate-spin'
+              className='animate-spin text-primary'
               viewBox='0 0 64 64'
               fill='none'
               xmlns='http://www.w3.org/2000/svg'
