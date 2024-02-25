@@ -1,10 +1,9 @@
 // import React from 'react'
 
 import { Home, ListVideo, Menu, Search } from 'lucide-react'
-import { Button } from '../ui/button'
-import { DrawerTrigger, Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerFooter, DrawerClose } from '../ui/drawer'
-import { Link, useLocation } from 'react-router-dom'
 import React from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from '../ui/drawer'
 
 interface SidebarItem {
   to: string

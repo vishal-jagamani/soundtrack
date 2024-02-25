@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 // import { Menu } from 'lucide-react'
 import SideDrawer from './SideDrawer'
