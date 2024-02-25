@@ -18,23 +18,23 @@ const Sidebar: FC = () => {
   const location = useLocation()
 
   return (
-    <div className='w-full px-2 lg:px-6 py-4 h-screen lg:border-r lg:w-64 hidden md:block space-y-6'>
-      {/* <h1 className='pb-8 pt-4'>SOUNDTRACK!</h1> */}
-
-      {sidebarItems.map(({ to, icon, label }) => (
-        <Link
-          key={to}
-          to={to}
-          className={`flex items-center flex-col lg:flex-row gap-x-4 space-y-2 lg:space-y-0 hover:bg-secondary p-1 py-2 lg:p-2 transition-all cursor-pointer `}
-        >
-          {React.cloneElement(icon, {
-            strokeWidth: location?.pathname === to ? 2 : 2,
-            className: location?.pathname === to ? 'text-primary' : '',
-            // fill: 'bg-primary',
-          })}
-          <h1 className={`text-sm transition-all font-normal ${location?.pathname === to ? 'text-primary' : ''}`}>{label}</h1>
-        </Link>
-      ))}
+    <div className='hidden h-screen w-full bg-background px-2 py-4 md:block md:w-20 lg:w-64 lg:border-r lg:px-6 '>
+      <div className='fixed space-y-6 lg:w-52'>
+        {sidebarItems.map(({ to, icon, label }) => (
+          <Link
+            key={to}
+            to={to}
+            className={`flex w-full cursor-pointer flex-col items-center gap-x-4 space-y-2 p-1 py-2 transition-all hover:bg-secondary lg:flex-row lg:space-y-0 lg:p-2 `}
+          >
+            {React.cloneElement(icon, {
+              strokeWidth: location?.pathname === to ? 2 : 2,
+              className: location?.pathname === to ? 'text-primary' : '',
+              // fill: 'bg-primary',
+            })}
+            <h1 className={`text-sm font-normal transition-all ${location?.pathname === to ? 'text-primary' : ''}`}>{label}</h1>
+          </Link>
+        ))}
+      </div>
     </div>
   )
 }
