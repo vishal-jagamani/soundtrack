@@ -11,7 +11,6 @@ const Search: FC = () => {
   const [SearchInput, { isLoading }] = useSearchInputMutation()
 
   const debouncedSearchTerm = useDebounce(searchText, 500)
-  console.log('🚀 ~ debouncedSearchTerm:', debouncedSearchTerm)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newSearchTerm = e.target.value

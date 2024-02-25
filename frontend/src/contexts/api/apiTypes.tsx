@@ -11,6 +11,7 @@ export interface EmailVerifyData {
 export interface UserSignUp {
   token: any
   data: any
+  status: boolean
 }
 
 export interface EmailVerifyPost {
