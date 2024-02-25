@@ -57,7 +57,7 @@ const RegisterForm: FC = ({}) => {
       const RAW_DATA = { userId: user?.userId, ...values }
       const response = await TriggerSignUp(RAW_DATA)?.unwrap()
 
-      if (response?.data?.status) {
+      if (response?.status) {
         navigate('/')
       } else {
         throw new Error('Something went wrong!')

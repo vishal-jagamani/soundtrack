@@ -2,19 +2,23 @@ import { FC } from 'react'
 import Sidebar from './sidebar'
 import { Outlet } from 'react-router'
 import { Toaster } from './ui/toaster'
-import { useAuth } from '@/utils/hof/AuthContext'
+import Navbar from './navbar'
+// import { useAuth } from '@/utils/hof/AuthContext'
 
 const Layout: FC = () => {
-  const { accessToken, setAccessToken } = useAuth()
-  console.log('🚀 ~ accessToken:', accessToken, setAccessToken)
+  // const { accessToken, setAccessToken } = useAuth()
+  // console.log('🚀 ~ accessToken:', accessToken, setAccessToken)
   return (
-    <div className='grid grid-cols-[280px_minmax(900px,_1fr)]'>
-      <Sidebar />
-      <div className='px-6 py-8 max-w-screen-xl mx-auto w-full overflow-x-hidden'>
-        <Outlet />
+    <>
+      <Navbar />
+      <div className='grid grid-cols-1 md:grid-cols-[auto,1fr] mt-12'>
+        <Sidebar />
+        <div className='px-6 pt-4 max-w-screen-xl mx-auto w-full overflow-x-hidden'>
+          <Outlet />
+        </div>
+        <Toaster />
       </div>
-      <Toaster />
-    </div>
+    </>
   )
 }
 
