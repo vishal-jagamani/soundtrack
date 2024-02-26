@@ -5,26 +5,23 @@ interface TrackCardProps {
 }
 
 const TrackCard: FC<TrackCardProps> = ({ data }) => {
-  console.log('🚀 ~ data:', data)
   const IMAGE = data?.images?.[1]
   return (
-    <>
-      <Card className='hover:bg-accent bg-background-highlight cursor-pointer transition-all min-w-40 border-none'>
-        <CardHeader className='space-y-4 p-2'>
-          <img src={IMAGE?.url} alt='Track-image' className='h-36 object-cover' />
-          <div>
-            <CardTitle className='line-clamp-1'>{data?.name}</CardTitle>
-            <CardDescription className='text-xs mt-2'>{data?.releaseDate?.split('-')[0]}</CardDescription>
-          </div>
-        </CardHeader>
-        {/* <CardContent>
+    <Card className='bg-background-highlight min-w-40 cursor-pointer snap-start border-none transition-all hover:bg-accent'>
+      <CardHeader className='space-y-4 p-2'>
+        <img src={IMAGE?.url} alt='Track-image' className='h-36 object-cover' />
+        <div>
+          <CardTitle className='line-clamp-1'>{data?.name}</CardTitle>
+          <CardDescription className='mt-2 text-xs'>{data?.releaseDate?.split('-')[0]}</CardDescription>
+        </div>
+      </CardHeader>
+      {/* <CardContent>
           <p>Card Content</p>
         </CardContent> */}
-        {/* <CardFooter>
+      {/* <CardFooter>
           <p>Card Footer</p>
         </CardFooter> */}
-      </Card>
-    </>
+    </Card>
   )
 }
 

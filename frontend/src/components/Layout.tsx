@@ -8,7 +8,6 @@ import Banner from './banner'
 
 const Layout: FC = () => {
   // const { accessToken, setAccessToken } = useAuth()
-  // console.log('🚀 ~ accessToken:', accessToken, setAccessToken)
   return (
     <>
       <Navbar />

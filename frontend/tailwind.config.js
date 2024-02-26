@@ -6,6 +6,7 @@ module.exports = {
   theme: {
     fontFamily: {
       inter: 'Inter',
+      major: 'Major Mono Display',
     },
     // fontSize: {
     //   sm: 'clamp(0.8rem, 0.17vw + 0.76rem, 0.89rem)',
