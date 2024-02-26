@@ -33,7 +33,7 @@ const SideDrawer = () => {
                 <Menu className='cursor-pointer' />
               </DrawerClose>
             </div>
-            <h1 className='-mt-1 ml-4 text-base'>SOUNDTRACK!</h1>
+            <h1 className='font-major -mt-1 ml-2 whitespace-nowrap text-xl text-primary'>\\ SOUNDTRACK!</h1>
           </div>
 
           {sidebarItems?.map(({ to, icon, label }) => (

@@ -9,7 +9,7 @@ const Navbar: FC = () => {
         <div className='p-2 hover:bg-muted lg:hidden'>
           <SideDrawer />
         </div>
-        <h1 className='-mt-1 ml-4 text-base'>SOUNDTRACK!</h1>
+        <h1 className='font-major -mt-1 ml-4 whitespace-nowrap text-xl text-primary'>\\ SOUNDTRACK!</h1>
       </div>
       <ProfileMenu />
     </nav>
