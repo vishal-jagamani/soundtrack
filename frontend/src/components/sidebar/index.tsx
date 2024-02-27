@@ -24,7 +24,7 @@ const Sidebar: FC = () => {
           <Link
             key={to}
             to={to}
-            className={`flex w-full cursor-pointer flex-col items-center gap-x-4 space-y-2 p-1 py-2 transition-all hover:bg-secondary lg:flex-row lg:space-y-0 lg:p-2 `}
+            className={`flex w-full cursor-pointer flex-col items-center gap-x-4 space-y-2 p-1 py-2 transition-all hover:bg-accent lg:flex-row lg:space-y-0 lg:p-2 `}
           >
             {React.cloneElement(icon, {
               strokeWidth: location?.pathname === to ? 2 : 2,

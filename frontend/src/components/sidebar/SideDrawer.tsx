@@ -25,15 +25,15 @@ const SideDrawer = () => {
       <DrawerTrigger>
         <Menu className='cursor-pointer' />
       </DrawerTrigger>
-      <DrawerContent showSlider={false} className='left-0 top-0 mt-0 w-72 rounded-none'>
+      <DrawerContent showSlider={false} className='left-0 top-0 mt-0 w-64 rounded-none border-t-0'>
         <div className='h-screen w-full space-y-6 px-6 py-4'>
-          <div className='flex w-[240px] items-center py-2 lg:border-r'>
-            <div className='p-2 hover:bg-muted lg:hidden'>
+          <div className='flex w-[240px] items-center pt-2 lg:border-r'>
+            <div className='flex size-10 items-center justify-center hover:bg-muted lg:hidden'>
               <DrawerClose>
                 <Menu className='cursor-pointer' />
               </DrawerClose>
             </div>
-            <h1 className='font-major -mt-1 ml-2 whitespace-nowrap text-xl text-primary'>\\ SOUNDTRACK!</h1>
+            <h1 className='font-major ml-2 whitespace-nowrap text-xl text-primary'>SOUNDTRACK!</h1>
           </div>
 
           {sidebarItems?.map(({ to, icon, label }) => (
