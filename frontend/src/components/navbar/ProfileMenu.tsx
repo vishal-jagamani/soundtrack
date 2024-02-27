@@ -1,4 +1,3 @@
-import { FC, useState } from 'react'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,18 +6,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { useLocalStorage } from '@/utils/customHooks/useLocalStorage'
+import { FC } from 'react'
 import { useNavigate } from 'react-router'
-import { useTheme } from '../theme-provider'
-
-// const themeType = string | null | undefined
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
+import ThemeToggle from './ThemeToggle'
 
 const ProfileMenu: FC = () => {
   const [localStorage] = useLocalStorage('user')
-  const [theme] = useLocalStorage('soundtrack-ui-theme')
-  const [toggleTheme, setToggleTheme] = useState<any>(theme)
-  const { setTheme } = useTheme()
   const navigate = useNavigate()
   const handleSignOut = (val: any) => {
     if (val) {
@@ -26,26 +21,22 @@ const ProfileMenu: FC = () => {
     } else navigate('/sign-in')
   }
 
-  const handleToggleTheme = () => {
-    setToggleTheme(toggleTheme === 'light' ? 'dark' : 'light')
-    setTheme(toggleTheme === 'light' ? 'dark' : 'light')
-  }
   return (
-    <div>
+    <div className='flex items-center'>
+      <ThemeToggle />
       <DropdownMenu>
-        <DropdownMenuTrigger>
-          <div className='mr-4 max-w-screen-xl md:mr-8'>
+        <div className='mr-4 max-w-screen-xl md:mr-8'>
+          <DropdownMenuTrigger>
             <Avatar className='h-8 w-8 cursor-pointer'>
               <AvatarImage src='https://github.com/shadcn.png' alt='@shadcn' />
               <AvatarFallback>AN</AvatarFallback>
             </Avatar>
-          </div>
-        </DropdownMenuTrigger>
+          </DropdownMenuTrigger>
+        </div>
         <DropdownMenuContent className='right-24'>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
 
-          <DropdownMenuItem onClick={() => handleToggleTheme()}>Switch mode</DropdownMenuItem>
           <DropdownMenuItem>Profile</DropdownMenuItem>
           <DropdownMenuItem>Terms & privacy policy</DropdownMenuItem>
           <DropdownMenuItem>Help</DropdownMenuItem>

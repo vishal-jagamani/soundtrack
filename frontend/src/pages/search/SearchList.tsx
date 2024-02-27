@@ -1,6 +1,7 @@
 import TrackCard from '@/components/card/TrackCard'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { FC, useRef, useState } from 'react'
+import { motion, useInView } from 'framer-motion'
 
 interface ComponentProps {
   title: string
@@ -9,8 +10,23 @@ interface ComponentProps {
 
 const SearchList: FC<ComponentProps> = ({ title, data }) => {
   const [scrollPosition, setScrollPosition] = useState<number>(0)
-  const containerRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLOListElement>(null)
+  const isInView = useInView(containerRef, { once: true })
 
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  }
+
+  const item = {
+    hidden: { opacity: 0, y: 50 },
+    show: { opacity: 1, y: 0 },
+  }
   const handleScroll = (scrollAmount: any) => {
     // Calculate the new scroll position
     const newScrollPosition = scrollPosition + scrollAmount
@@ -31,9 +47,19 @@ const SearchList: FC<ComponentProps> = ({ title, data }) => {
           <ChevronRight className='cursor-pointer' onClick={() => handleScroll(700)} />
         </div>
       </div>
-      <div className='no-scrollbar flex w-full snap-x space-x-6 overflow-scroll scroll-smooth' ref={containerRef}>
-        {data?.[title]?.items?.map((item: any) => <TrackCard data={item} />)}
-      </div>
+      <motion.ol
+        variants={container}
+        initial='hidden'
+        animate={isInView ? 'show' : ''}
+        className='no-scrollbar flex w-full snap-x space-x-6 overflow-scroll scroll-smooth'
+        ref={containerRef}
+      >
+        {data?.[title]?.items?.map((list: any, index: number) => (
+          <motion.li variants={item} key={index}>
+            <TrackCard data={list} />
+          </motion.li>
+        ))}
+      </motion.ol>
     </div>
   )
 }

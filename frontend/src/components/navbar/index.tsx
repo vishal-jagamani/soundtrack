@@ -4,13 +4,14 @@ import ProfileMenu from './ProfileMenu'
 
 const Navbar: FC = () => {
   return (
-    <nav className='fixed top-0 flex w-full items-center justify-between bg-background'>
+    <nav className='fixed top-0 z-10 flex w-full items-center justify-between bg-background/95 backdrop-blur-sm'>
       <div className='ml-4 flex w-[240px] items-center py-2 lg:border-r lg:pb-4 lg:pt-6'>
-        <div className='p-2 hover:bg-muted lg:hidden'>
+        <div className='flex size-10 items-center justify-center hover:bg-muted lg:hidden'>
           <SideDrawer />
         </div>
-        <h1 className='font-major -mt-1 ml-4 whitespace-nowrap text-xl text-primary'>\\ SOUNDTRACK!</h1>
+        <h1 className='ml-2 whitespace-nowrap font-major text-xl text-primary'>SOUNDTRACK!</h1>
       </div>
+
       <ProfileMenu />
     </nav>
   )

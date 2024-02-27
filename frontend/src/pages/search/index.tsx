@@ -6,6 +6,7 @@ import SearchContainer from './SearchList'
 interface SearchResponse {
   [key: string]: any
 }
+
 const Search: FC = () => {
   const [searchText, setSearchText] = useState<string>('camila')
   const [searchResponse, setSearchResponse] = useState<SearchResponse>({})
@@ -51,8 +52,8 @@ const Search: FC = () => {
         ) : null}
         <div className='space-y-8'>
           {!isLoading &&
-            SEARCH_HEADER_TITLE_CASE?.map(title => {
-              return <SearchContainer data={searchResponse} title={title} />
+            SEARCH_HEADER_TITLE_CASE?.map((title, index) => {
+              return <SearchContainer data={searchResponse} title={title} key={index} />
             })}
         </div>
       </>
