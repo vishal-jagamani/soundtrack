@@ -38,7 +38,7 @@ const Search: FC = () => {
   }, [debouncedSearchTerm])
 
   return (
-    <div className='space-y-6'>
+    <div className='wrapper-container space-y-6 '>
       {/* Search */}
       <Input type='text' placeholder='Search' onChange={e => handleChange(e)} />
       <>

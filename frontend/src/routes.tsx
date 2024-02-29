@@ -7,6 +7,8 @@ import Layout from './components/Layout'
 import Search from './pages/search'
 import Playlist from './pages/playlist'
 import ErrorPage from './components/ErrorPage'
+import Feedback from './pages/feedback'
+import Artist from './pages/artist'
 // import ErrorPage from "./components/errorPage";
 // import PageNotFound from './components/utils/hoc/pageNotFound';
 // const TokenValidation = lazy(() => import('./components/utils/hoc/tokenValidation'));
@@ -33,6 +35,16 @@ export const router = createBrowserRouter([
         element: <Playlist />,
         errorElement: <ErrorPage />,
       },
+      // {
+      //   path: '/feedback',
+      //   element: <Feedback />,
+      //   errorElement: <ErrorPage />,
+      // },
+      {
+        path: '/artist/:id',
+        element: <Artist />,
+        errorElement: <ErrorPage />,
+      },
     ],
   },
 
@@ -45,6 +57,7 @@ export const router = createBrowserRouter([
     path: '*',
     element: <PageNotFound />,
   },
+
   // {
   //   path: '/add-connection',
   //   element: <TestConnection />,

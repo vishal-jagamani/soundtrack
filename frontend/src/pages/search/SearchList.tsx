@@ -56,7 +56,7 @@ const SearchList: FC<ComponentProps> = ({ title, data }) => {
       >
         {data?.[title]?.items?.map((list: any, index: number) => (
           <motion.li variants={item} key={index}>
-            <TrackCard data={list} />
+            <TrackCard data={list} type={title} />
           </motion.li>
         ))}
       </motion.ol>
