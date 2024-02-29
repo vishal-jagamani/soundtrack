@@ -35,11 +35,11 @@ export const router = createBrowserRouter([
         element: <Playlist />,
         errorElement: <ErrorPage />,
       },
-      // {
-      //   path: '/feedback',
-      //   element: <Feedback />,
-      //   errorElement: <ErrorPage />,
-      // },
+      {
+        path: '/feedback',
+        element: <Feedback />,
+        errorElement: <ErrorPage />,
+      },
       {
         path: '/artist/:id',
         element: <Artist />,
