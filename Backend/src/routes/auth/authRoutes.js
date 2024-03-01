@@ -2,11 +2,20 @@ import express from 'express';
 const router = express.Router();
 
 // Services
-import { checkUserEmail, resendOTP, userLogin, userSignupDetails, verifyOTP } from '../../services/auth/authService.js';
+import { checkUserDetails, checkUserEmail, resendOTP, userLogin, userSignupDetails, verifyOTP } from '../../services/auth/authService.js';
 
 // Micro routes
 router.get('/', async (req, res) => {
     res.send('auth base route');
+});
+
+router.get('/user', async (req, res, next) => {
+    try {
+        const response = await checkUserDetails(req, res);
+        return response;
+    } catch (err) {
+        res.status(500).send(err);
+    }
 });
 
 router.post('/checkUserEmail', async (req, res) => {

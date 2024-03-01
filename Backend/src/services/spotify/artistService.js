@@ -56,9 +56,18 @@ const getArtistAlbums = async (id, market, limit, offset) => {
 // Get artist top tracks by artist id
 const getArtistTopTracks = async (id, market) => {
     try {
+        market = market ? market : 'IN';
         const url = `${Spotify_Config?.API_Base_URL}/artists/${id}/top-tracks?market=${market}`;
         const response = await spotifyGET(url);
-        return { status: true, message: 'Artist top tracks', data: response?.data };
+        const data = response?.tracks?.map((item) => {
+            return Object.keys(item).reduce((newObj, key) => {
+                if (Spotify_Response_Mapping?.Track?.[key]) {
+                    newObj[Spotify_Response_Mapping?.Track?.[key]] = item[key];
+                }
+                return newObj;
+            }, {});
+        });
+        return { status: true, message: 'Artist top tracks', data };
     } catch (err) {
         console.log('Error in artistService.getArtistTopTracks service', err);
         return { status: false, message: 'Error in service' };

@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 
-// Service
+// Services
 import { getArtist, getArtistAlbums, getArtistSimilarArtists, getArtistTopTracks, getSeveralArtists } from '../../services/spotify/artistService.js';
 
 // Get several artists details by artist ids, maximum 100
