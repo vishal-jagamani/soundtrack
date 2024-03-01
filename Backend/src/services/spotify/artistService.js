@@ -59,7 +59,7 @@ const getArtistTopTracks = async (id, market) => {
         market = market ? market : 'IN';
         const url = `${Spotify_Config?.API_Base_URL}/artists/${id}/top-tracks?market=${market}`;
         const response = await spotifyGET(url);
-        const data = response?.tracks?.map((item) => {
+        const data = response?.data?.tracks?.map((item) => {
             return Object.keys(item).reduce((newObj, key) => {
                 if (Spotify_Response_Mapping?.Track?.[key]) {
                     newObj[Spotify_Response_Mapping?.Track?.[key]] = item[key];
