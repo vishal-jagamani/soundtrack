@@ -57,7 +57,7 @@ const RegisterForm: FC = ({}) => {
       const RAW_DATA = { userId: user?.userId, ...values }
       const response = await TriggerSignUp(RAW_DATA)?.unwrap()
 
-      if (response?.data?.status) {
+      if (response?.status) {
         navigate('/')
       } else {
         throw new Error('Something went wrong!')
@@ -73,7 +73,7 @@ const RegisterForm: FC = ({}) => {
   return (
     <motion.div key='email' variants={container} initial='hidden' animate='show' exit='exit'>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8 w-full mt-8'>
+        <form onSubmit={form.handleSubmit(onSubmit)} className='mt-8 w-full space-y-8'>
           {/* <FormField
             control={form.control}
             name='firstName'
@@ -86,7 +86,7 @@ const RegisterForm: FC = ({}) => {
               </FormItem>
             )}
           /> */}
-          <div className='flex gap-x-4 w-full'>
+          <div className='flex w-full gap-x-4'>
             <InputFormField placeholder='First Name' name='firstName' form={form} />
             <InputFormField placeholder='Last Name' name='lastName' form={form} />
           </div>
@@ -94,7 +94,7 @@ const RegisterForm: FC = ({}) => {
           <InputFormField placeholder='Confirm Password' name='confirmPassword' form={form} type='password' />
 
           <Button
-            className='w-full mt-6'
+            className='mt-6 w-full'
             type='submit'
             //  disabled={isLoading ? true : false}
           >
