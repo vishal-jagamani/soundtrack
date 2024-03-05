@@ -25,7 +25,7 @@ export const checkUserDetails = async (req, res) => {
                 ]?.join(', ');
                 res?.setHeader('x-anonymous-user', false);
                 res?.set('Access-Control-Expose-Headers', exposedHeaders);
-                return res?.status(200)?.send({ status: true, message: 'Logged in user' });
+                return res?.status(200)?.send({ status: true, message: 'Logged in user', data: validateToken?.validateResult });
             } else {
                 if (validateToken && validateToken?.error == 'Expired') {
                     const refreshedToken = await refreshAccessTokenFromRefreshToken(refreshToken);
@@ -43,7 +43,8 @@ export const checkUserDetails = async (req, res) => {
                         ]?.join();
                         res?.setHeader('x-anonymous-user', false);
                         res?.set('Access-Control-Expose-Headers', exposedHeaders);
-                        return res.status(200).send({ status: true, message: 'Logged in user' });
+                        const tokenData = await validateAccessToken(refreshedToken?.accessToken);
+                        return res.status(200).send({ status: true, message: 'Logged in user', data: tokenData?.validateResult });
                     } else {
                         return await getAnonymousUserData(req, res);
                     }
@@ -87,7 +88,7 @@ export const getAnonymousUserData = async (req, res) => {
         res?.set(headers);
         const exposedHeaders = Object.keys(headers).join(', ');
         res?.set('Access-Control-Expose-Headers', exposedHeaders);
-        return res?.status(200)?.send({ status: true, message: 'Anonymous user' });
+        return res?.status(200)?.send({ status: true, message: 'Anonymous user', data: anonymousUserData });
     } catch (err) {
         console.log('Error in authService.getAnonymousUserData service', err);
         throw err;

@@ -3,6 +3,10 @@ const router = express.Router();
 
 // Services
 import { getArtist, getArtistAlbums, getArtistSimilarArtists, getArtistTopTracks, getSeveralArtists } from '../../services/spotify/artistService.js';
+import { verifyAccessToken } from '../../utils/jwt.js';
+
+// Middleware to handle authentication
+router.use(verifyAccessToken);
 
 // Get several artists details by artist ids, maximum 100
 router.get('/', async (req, res) => {

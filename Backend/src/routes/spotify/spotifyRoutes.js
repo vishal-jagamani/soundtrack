@@ -4,17 +4,19 @@ const router = express.Router();
 // Micro routes
 import artistRoutes from './artistRoutes.js';
 import albumRoutes from './albumRoutes.js';
+import playlistRoutes from './playlistRoutes.js';
 
 // Services
 import { linkSpotifyAccount, oauthCallback, spotifySearch } from '../../services/spotify/userService.js';
 import { verifyAccessToken } from '../../utils/jwt.js';
 
 // Middleware to handle authentication
-// router.use(verifyAccessToken);
+router.use(verifyAccessToken);
 
 // Use micro routes (Spotify)
 router.use('/artists', artistRoutes);
 router.use('/albums', albumRoutes);
+router.use('/playlists', playlistRoutes);
 
 // Micro routes
 router.get('/linkSpotifyAccount', async (req, res) => {

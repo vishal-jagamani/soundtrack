@@ -98,6 +98,21 @@ export const Spotify_Response_Mapping = {
         artists: 'artists',
         album: 'album',
     },
+    Playlist: {
+        id: 'id',
+        uri: 'uri',
+        name: 'name',
+        type: 'type',
+        description: 'description',
+        owner: 'owner',
+        primary_color: 'primaryColor',
+        public: 'public',
+        collaborative: 'collaborative',
+        snapshot_id: 'snapshotId',
+        external_urls: 'externalURLs',
+        images: 'images',
+        tracks: 'tracks',
+    },
     Search: {
         album: {
             id: 'id',
