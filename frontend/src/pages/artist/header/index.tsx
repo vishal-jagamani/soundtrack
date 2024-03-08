@@ -12,11 +12,11 @@ const Header: FC<HeaderProps> = ({ data, dataLoading }) => {
     if (value < 1e3) {
       return value.toString()
     } else if (value < 1e6) {
-      return (value / 1e3).toFixed(1) + 'K'
+      return (value / 1e3).toFixed(1) + ' K'
     } else if (value < 1e9) {
-      return (value / 1e6).toFixed(1) + 'M'
+      return (value / 1e6).toFixed(1) + ' M'
     } else {
-      return (value / 1e9).toFixed(1) + 'B'
+      return (value / 1e9).toFixed(1) + ' B'
     }
   }
   return (
@@ -41,7 +41,7 @@ const Header: FC<HeaderProps> = ({ data, dataLoading }) => {
             src={data?.images?.[0]?.url}
             loading='lazy'
             draggable={false}
-            className='size-48 border-4 border-primary object-cover md:size-72'
+            className='size-48 border-2 border-primary object-cover md:size-72'
           />
           <div className='space-y-4'>
             <h1 className='line-clamp-2 select-none text-[2.5rem] font-bold md:text-8xl'>{data?.name}</h1>

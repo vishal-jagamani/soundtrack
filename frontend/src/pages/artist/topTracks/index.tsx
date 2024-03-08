@@ -1,78 +1,69 @@
+import TrackTable from '@/components/table/TrackTable'
+import { Skeleton } from '@/components/ui/skeleton'
+import { Toaster } from '@/components/ui/sonner'
+import { Table, TableBody, TableRow } from '@/components/ui/table'
 import { useGetRequestQuery } from '@/contexts/api/soundtrackApiService'
-import { FC, useRef } from 'react'
+import { MoreHorizontal, PauseCircle, PlayCircle } from 'lucide-react'
+import { FC, useState } from 'react'
 import { useParams } from 'react-router'
-import { motion, useInView } from 'framer-motion'
-import TrackCard from '@/components/card/TrackCard'
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { toast } from 'sonner'
 
 const TopTracks: FC = () => {
   const PARAMS = useParams()
   const { data: TopTracksData, isLoading: TopTracksIsLoading } = useGetRequestQuery(`/artists/${PARAMS?.id}/topTracks?market=US`)
-  console.log('🚀 ~ TopTracksData:', TopTracksData, TopTracksIsLoading)
-  const containerRef = useRef<HTMLOListElement>(null)
-  const isInView = useInView(containerRef, { once: true })
 
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05,
-      },
-    },
-  }
+  const [play, setPlay] = useState<boolean>(false)
+  const [following, setFollowing] = useState<boolean>(true)
 
-  const item = {
-    hidden: { opacity: 0, y: 50 },
-    show: { opacity: 1, y: 0 },
-  }
-
-  const formatTime = (duration: number): string => {
-    const minutes = Math.floor(duration / 60000)
-    const seconds = ((duration % 60000) / 1000).toFixed(0)
-    return `${minutes}:${parseInt(seconds) < 10 ? '0' : ''}${seconds}`
+  const handleFollowButtonClick = () => {
+    if (following) {
+      setFollowing(false)
+      toast('Unfollowed the artist')
+    } else {
+      setFollowing(true)
+      toast('Followed the artist')
+    }
   }
 
   return (
-    <div className='py-4'>
-      {/* <motion.ol
-        variants={container}
-        initial='hidden'
-        animate={isInView ? 'show' : ''}
-        className='no-scrollbar flex w-full snap-x space-x-6 overflow-scroll scroll-smooth'
-        ref={containerRef}
-      >
-        {TopTracksData?.data?.tracks?.map((list: any, index: number) => (
-          <motion.li variants={item} key={index}>
-            <TrackCard data={list} type={'tracks'} />
-          </motion.li>
-        ))}
-      </motion.ol> */}
-      <TableCaption className='flex text-2xl font-bold'>Popular Tracks</TableCaption>
-      <Table>
-        {/* <TableHeader>
-          <TableRow>
-            <TableHead className='w-[100px]'>Invoice</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Method</TableHead>
-            <TableHead className='text-right'>Amount</TableHead>
-          </TableRow>
-        </TableHeader> */}
-        <TableBody>
-          {TopTracksData?.data?.tracks?.map((row: any, index: number) => (
-            // console.log('row', row)
-            <TableRow>
-              <TableCell className='font-medium'>{index + 1}</TableCell>
-              <TableCell>
-                <img src={row?.images} alt='' />
-                {row?.name}
-              </TableCell>
-              <TableCell>{row?.artists?.map((val: any) => val?.name)?.join(', ')}</TableCell>
-              <TableCell className='text-right'>{formatTime(row?.duration_ms)}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+    <div>
+      <div className='flex items-center sm:space-x-2'>
+        {play ? (
+          <PauseCircle
+            size={90}
+            strokeWidth={1}
+            className='p-3 text-primary hover:scale-105 hover:cursor-pointer active:scale-100'
+            onClick={() => setPlay(!play)}
+          />
+        ) : (
+          <PlayCircle
+            size={90}
+            strokeWidth={1}
+            className='p-3 text-primary hover:scale-105 hover:cursor-pointer active:scale-100'
+            onClick={() => setPlay(!play)}
+          />
+        )}
+        <p
+          className='mr-4 select-none rounded-full border-2 border-muted-foreground px-6 py-2 text-sm font-semibold hover:scale-105 hover:cursor-pointer hover:border-foreground active:scale-100'
+          onClick={() => handleFollowButtonClick()}
+        >
+          {following ? 'Following' : 'Follow'}
+        </p>
+        <MoreHorizontal size={40} className='text-muted-foreground hover:scale-105 hover:cursor-pointer hover:text-secondary-foreground' />
+      </div>
+      {TopTracksIsLoading && (
+        <Table>
+          <TableBody className='space-y-2'>
+            {Array.from({ length: 10 }, (_, index) => index + 1)?.map(() => (
+              <TableRow>
+                <Skeleton className='mt-1 flex h-8 items-center md:space-x-3' />
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
+      <TrackTable tableTile='Popular Tracks' data={TopTracksData?.data ?? []} />
+      <Toaster />
     </div>
   )
 }
