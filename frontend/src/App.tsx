@@ -5,8 +5,12 @@ import './App.css'
 import { router } from './routes'
 import LoadingSpinner from './components/loader/LoadingSpinner'
 import { ThemeProvider } from './components/theme-provider'
+import { useGetRequestQuery } from './contexts/api/authApiService'
 
 export const App: React.FC = () => {
+  const { data: AuthUser } = useGetRequestQuery('/user')
+  console.log('🚀 ~ AuthUser:', AuthUser)
+
   return (
     <AnimatePresence mode='wait'>
       <Suspense fallback={<LoadingSpinner />}>

@@ -8,7 +8,7 @@ interface ComponentProps {
   data: any
 }
 
-const SearchList: FC<ComponentProps> = ({ title, data }) => {
+const HomeList: FC<ComponentProps> = ({ title, data }) => {
   const [scrollPosition, setScrollPosition] = useState<number>(0)
   const containerRef = useRef<HTMLOListElement>(null)
   const isInView = useInView(containerRef, { once: true })
@@ -38,6 +38,7 @@ const SearchList: FC<ComponentProps> = ({ title, data }) => {
       containerRef.current.scrollLeft = newScrollPosition < 0 ? 0 : newScrollPosition
     }
   }
+  console.log(data)
   return (
     <div>
       <div className='flex items-center justify-between'>
@@ -54,7 +55,7 @@ const SearchList: FC<ComponentProps> = ({ title, data }) => {
         className='no-scrollbar flex w-full snap-x space-x-6 overflow-scroll scroll-smooth'
         ref={containerRef}
       >
-        {data?.[title]?.items?.map((list: any, index: number) => (
+        {data?.[title]?.map((list: any, index: number) => (
           <motion.li variants={item} key={index}>
             <TrackCard data={list} type={title} />
           </motion.li>
@@ -64,4 +65,4 @@ const SearchList: FC<ComponentProps> = ({ title, data }) => {
   )
 }
 
-export default SearchList
+export default HomeList
