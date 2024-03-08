@@ -15,20 +15,20 @@ const TrackCard: FC<TrackCardProps> = ({ data, type }) => {
   }
   return (
     <Card
-      className='bg-background-highlight min-w-36 cursor-pointer snap-start border-none transition-all hover:bg-muted md:min-w-40'
+      className='min-w-36 cursor-pointer snap-start border-none  transition-all hover:bg-muted md:min-w-40'
       onClick={() => handleNavigate()}
     >
       <CardHeader className='space-y-4 p-2'>
         {IMAGE?.url ? (
-          <img src={IMAGE?.url} alt='Track-image' className='h-36 object-cover  ' />
+          <img src={IMAGE?.url} alt='Track-image' className='h-36 object-cover' loading='lazy' />
         ) : (
           <div className='flex h-36 items-center justify-center bg-background'>
             <h1 className='ml-2 whitespace-nowrap font-major text-lg text-primary'>SOUNDTRACK!</h1>
           </div>
         )}
         <div>
-          <CardTitle className='line-clamp-1'>{data?.name}</CardTitle>
-          <CardDescription className='mt-2 text-xs'>{data?.releaseDate?.split('-')[0]}</CardDescription>
+          <CardTitle className='line-clamp-1 text-sm font-normal text-foreground/90'>{data?.name}</CardTitle>
+          <CardDescription className='mt-1 text-xs'>{data?.releaseDate?.split('-')[0]}</CardDescription>
         </div>
       </CardHeader>
       {/* <CardContent>

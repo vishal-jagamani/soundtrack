@@ -7,11 +7,13 @@ export const authApi = createApi({
     // THIS IS THE BASE ENDPOINT COMING FROM THE CONFIG FILE
     baseUrl: AUTH_BASE_URL,
     // This function takes in headers
-    // prepareHeaders: (headers, { getState }) => {
-    //   const token = getState()?.authDetails?.details?.data?.token ?? "ABCD-1234";
-    //   headers.set("authorization", `Bearer ${token ? token : "token not found"}`);
-    //   return headers;
-    // },
+    prepareHeaders: (headers, {}) => {
+      const token = window.localStorage.getItem('accessToken') ?? 'TOKEN-NOT-FOUND'
+      const refreshToken = window.localStorage.getItem('refreshToken') ?? 'TOKEN-NOT-FOUND'
+      headers.set('authorization', `Bearer ${token ? token : 'token not found'}`)
+      headers.set('x-refresh-token', `${refreshToken ? refreshToken : 'token not found'}`)
+      return headers
+    },
   }),
   endpoints: () => ({}),
   tagTypes: [],

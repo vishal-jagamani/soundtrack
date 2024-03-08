@@ -4,8 +4,8 @@ import ProfileMenu from './ProfileMenu'
 
 const Navbar: FC = () => {
   return (
-    <nav className='nbackdrop-blur fixed top-0 z-10 flex w-full items-center justify-between'>
-      <div className='ml-4 flex w-[240px] items-center py-2 lg:border-r lg:pb-4 lg:pt-6'>
+    <nav className='fixed top-0 z-10 flex w-full items-center justify-between backdrop-blur'>
+      <div className='flex w-[240px] items-center py-2 md:ml-4 lg:border-r lg:pb-4 lg:pt-6'>
         <div className='flex size-10 items-center justify-center hover:bg-muted lg:hidden'>
           <SideDrawer />
         </div>

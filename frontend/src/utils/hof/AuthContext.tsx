@@ -9,8 +9,7 @@ interface AuthContextProps {
 const AuthContext = createContext<AuthContextProps | undefined>(undefined)
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [accessToken, setAccessToken] = useState<string | null>(localStorage.getItem('accessToken'))
-
+  const [accessToken, setAccessToken] = useState<string | null>(window.localStorage.getItem('accessToken'))
   return <AuthContext.Provider value={{ accessToken, setAccessToken }}>{children}</AuthContext.Provider>
 }
 
