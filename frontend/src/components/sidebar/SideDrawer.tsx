@@ -23,7 +23,7 @@ const SideDrawer = () => {
   return (
     <Drawer direction='left'>
       <DrawerTrigger>
-        <Menu className='cursor-pointer' />
+        <Menu className='cursor-pointer text-muted-foreground' />
       </DrawerTrigger>
       <DrawerContent showSlider={false} className='left-0 top-0 mt-0 w-64 rounded-none border-t-0'>
         <div className='h-screen w-full space-y-6 px-6 py-4'>
@@ -33,7 +33,7 @@ const SideDrawer = () => {
                 <Menu className='cursor-pointer' />
               </DrawerClose>
             </div>
-            <h1 className='font-major ml-2 whitespace-nowrap text-xl text-primary'>SOUNDTRACK!</h1>
+            <h1 className='ml-2 whitespace-nowrap font-major text-xl text-primary'>SOUNDTRACK!</h1>
           </div>
 
           {sidebarItems?.map(({ to, icon, label }) => (
