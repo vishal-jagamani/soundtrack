@@ -15,7 +15,7 @@ const TrackCard: FC<TrackCardProps> = ({ data, type }) => {
   }
   return (
     <Card
-      className='bg-background-highlight min-w-36 cursor-pointer snap-start border-none transition-all hover:bg-muted md:min-w-40'
+      className='min-w-36 cursor-pointer snap-start border-none  transition-all hover:bg-muted md:min-w-40'
       onClick={() => handleNavigate()}
     >
       <CardHeader className='space-y-4 p-2'>
@@ -27,8 +27,8 @@ const TrackCard: FC<TrackCardProps> = ({ data, type }) => {
           </div>
         )}
         <div>
-          <CardTitle className='line-clamp-1'>{data?.name}</CardTitle>
-          <CardDescription className='mt-2 text-xs'>{data?.releaseDate?.split('-')[0]}</CardDescription>
+          <CardTitle className='line-clamp-1 text-sm font-normal text-foreground/90'>{data?.name}</CardTitle>
+          <CardDescription className='mt-1 text-xs'>{data?.releaseDate?.split('-')[0]}</CardDescription>
         </div>
       </CardHeader>
       {/* <CardContent>

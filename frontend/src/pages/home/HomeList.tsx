@@ -38,12 +38,11 @@ const HomeList: FC<ComponentProps> = ({ title, data }) => {
       containerRef.current.scrollLeft = newScrollPosition < 0 ? 0 : newScrollPosition
     }
   }
-  console.log(data)
   return (
     <div>
       <div className='flex items-center justify-between'>
-        <h1 className='mb-4 capitalize'>{title}</h1>
-        <div className='flex space-x-4'>
+        <h1 className='font-open-sans mb-4 text-xl font-bold capitalize'>{title}</h1>
+        <div className='hidden space-x-4 md:flex'>
           <ChevronLeft className='cursor-pointer' onClick={() => handleScroll(-700)} />
           <ChevronRight className='cursor-pointer' onClick={() => handleScroll(700)} />
         </div>
@@ -52,11 +51,11 @@ const HomeList: FC<ComponentProps> = ({ title, data }) => {
         variants={container}
         initial='hidden'
         animate={isInView ? 'show' : ''}
-        className='no-scrollbar flex w-full snap-x space-x-6 overflow-scroll scroll-smooth'
+        className='no-scrollbar flex w-full snap-x space-x-6 overflow-x-scroll scroll-smooth'
         ref={containerRef}
       >
         {data?.[title]?.map((list: any, index: number) => (
-          <motion.li variants={item} key={index}>
+          <motion.li variants={item} key={index} className='my-2'>
             <TrackCard data={list} type={title} />
           </motion.li>
         ))}

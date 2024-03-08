@@ -18,6 +18,9 @@ export interface EmailVerifyPost {
   email: string
 }
 
+export interface ResendOtpPost {
+  userId: number
+}
 export interface OtpVerifyPost {
   userId: number
   otp: string

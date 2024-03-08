@@ -1,5 +1,5 @@
 import { authApi } from '../store/slice'
-import { EmailVerifyData, EmailVerifyPost, OtpVerifyPost, UserLoginPost, UserPostData, UserSignUp } from './apiTypes'
+import { EmailVerifyData, EmailVerifyPost, OtpVerifyPost, ResendOtpPost, UserLoginPost, UserPostData, UserSignUp } from './apiTypes'
 
 export const authApiService = authApi.injectEndpoints({
   endpoints: builder => ({
@@ -22,9 +22,9 @@ export const authApiService = authApi.injectEndpoints({
         body: payload,
       }),
     }),
-    resendOTP: builder.mutation<EmailVerifyData, OtpVerifyPost>({
+    resendOTP: builder.mutation<EmailVerifyData, ResendOtpPost>({
       query: payload => ({
-        url: '/verifyOTP',
+        url: '/resendOTP',
         method: 'POST',
         body: payload,
       }),

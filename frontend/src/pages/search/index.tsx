@@ -10,9 +10,10 @@ interface SearchResponse {
 const Search: FC = () => {
   const [searchText, setSearchText] = useState<string>('camila')
   const [searchResponse, setSearchResponse] = useState<SearchResponse>({})
+  console.log('🚀 ~ searchResponse:', searchResponse)
 
   const SEARCH_HEADER_TITLE_CASE = useMemo(() => {
-    return Object.keys(searchResponse)
+    return Object?.keys(searchResponse ?? {})
   }, [searchResponse])
 
   const [SearchInput, { isLoading }] = useSearchInputMutation()
