@@ -20,7 +20,7 @@ const TrackCard: FC<TrackCardProps> = ({ data, type }) => {
     >
       <CardHeader className='space-y-4 p-2'>
         {IMAGE?.url ? (
-          <img src={IMAGE?.url} alt='Track-image' className='h-36 object-cover  ' />
+          <img src={IMAGE?.url} alt='Track-image' className='h-36 object-cover' loading='lazy' />
         ) : (
           <div className='flex h-36 items-center justify-center bg-background'>
             <h1 className='ml-2 whitespace-nowrap font-major text-lg text-primary'>SOUNDTRACK!</h1>

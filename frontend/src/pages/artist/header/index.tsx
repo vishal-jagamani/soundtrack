@@ -37,7 +37,12 @@ const Header: FC<HeaderProps> = ({ data, dataLoading }) => {
       )}
       {data && (
         <div className='flex flex-row items-end space-x-4 space-y-4 md:items-end'>
-          <img src={data?.images?.[0]?.url} draggable={false} className='size-48 border-4 border-primary object-cover md:size-72' />
+          <img
+            src={data?.images?.[0]?.url}
+            loading='lazy'
+            draggable={false}
+            className='size-48 border-4 border-primary object-cover md:size-72'
+          />
           <div className='space-y-4'>
             <h1 className='line-clamp-2 select-none text-[2.5rem] font-bold md:text-8xl'>{data?.name}</h1>
             <p className='flex select-none items-center text-lg text-muted-foreground'>
