@@ -45,6 +45,10 @@ export const router = createBrowserRouter([
         element: <Artist />,
         errorElement: <ErrorPage />,
       },
+      {
+        path: '*',
+        element: <PageNotFound />,
+      },
     ],
   },
 
@@ -52,10 +56,6 @@ export const router = createBrowserRouter([
     path: '/sign-in',
     element: <SignIn />,
     errorElement: <ErrorPage />,
-  },
-  {
-    path: '*',
-    element: <PageNotFound />,
   },
 
   // {
