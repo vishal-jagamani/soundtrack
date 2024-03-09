@@ -22,13 +22,13 @@ const TrackCard: FC<TrackCardProps> = ({ data, type }) => {
         {IMAGE?.url ? (
           <img src={IMAGE?.url} alt='Track-image' className='h-36 object-cover' loading='lazy' />
         ) : (
-          <div className='flex h-36 items-center justify-center bg-background'>
+          <div className='flex size-36 items-center justify-center bg-background'>
             <h1 className='ml-2 whitespace-nowrap font-major text-lg text-primary'>SOUNDTRACK!</h1>
           </div>
         )}
         <div>
-          <CardTitle className='line-clamp-1 text-sm font-normal text-foreground/90'>{data?.name}</CardTitle>
-          <CardDescription className='mt-1 text-xs'>{data?.releaseDate?.split('-')[0]}</CardDescription>
+          <CardTitle className='line-clamp-1 select-none text-sm font-normal text-foreground/90'>{data?.name}</CardTitle>
+          <CardDescription className='mt-1 select-none text-xs'>{data?.releaseDate?.split('-')[0]}</CardDescription>
         </div>
       </CardHeader>
       {/* <CardContent>

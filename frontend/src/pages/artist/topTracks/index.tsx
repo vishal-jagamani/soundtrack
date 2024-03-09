@@ -26,7 +26,7 @@ const TopTracks: FC = () => {
     show: { opacity: 1, y: 0 },
   }
   return (
-    <div>
+    <div className='mt-6'>
       <motion.ol
         variants={container}
         initial='hidden'
@@ -34,7 +34,7 @@ const TopTracks: FC = () => {
         className='no-scrollbar flex w-full snap-x space-x-6 overflow-scroll scroll-smooth'
         ref={containerRef}
       >
-        {TopTracksData?.data?.tracks?.map((list: any, index: number) => (
+        {TopTracksData?.data?.map((list: any, index: number) => (
           <motion.li variants={item} key={index}>
             <TrackCard data={list} type={'tracks'} />
           </motion.li>
