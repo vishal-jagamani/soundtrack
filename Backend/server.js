@@ -27,18 +27,25 @@ const PORT = process.env.PORT || 8080;
 // Micro routes
 import authRoutes from './src/routes/auth/authRoutes.js';
 import demoRoutes from './src/routes/demoRoutes.js';
-import spotifyUserRoutes from './src/routes/spotify/userRoutes.js';
+import spotifyRoutes from './src/routes/spotify/spotifyRoutes.js';
+import { generateNewAccessToken, generateNewRefreshToken } from './src/utils/jwt.js';
 // Add rest of your micro routes here
 
 // Use micro routes
 app.use('/demo', demoRoutes);
 app.use('/auth', authRoutes);
-app.use('/spotify', spotifyUserRoutes);
+app.use('/spotify', spotifyRoutes);
 // Add rest of micro routes to put use in here1
 
 // Test endpoint
 app.get('/testEndpoint', (req, res) => {
     res.send('Soundtrack service test endpoint');
+});
+
+app.get('/getAccessToken', async (req, res) => {
+    const accessToken = await generateNewAccessToken({ id: 1, name: 'Vishal', accessToken: true });
+    const refreshToken = await generateNewRefreshToken({ id: 1, name: 'Vishal', accessToken: true });
+    res.send({ accessToken, refreshToken });
 });
 
 // Error handling middleware
