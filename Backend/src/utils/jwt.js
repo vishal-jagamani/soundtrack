@@ -74,8 +74,8 @@ const verifyAccessToken = async (req, res, next) => {
                     if (refreshedToken && refreshedToken?.status) {
                         // Set X-Token-Refreshed header in the response
                         res.setHeader('x-token-refreshed', true);
-                        res.set(req?.headers);
                         req.headers.authorization = `Bearer ${refreshedToken?.accessToken}`;
+                        res.set(req?.headers);
                         next();
                     } else {
                         res.status(401).send(Error_Responses?.Refresh_Token_Expired);
