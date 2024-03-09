@@ -10,6 +10,7 @@ const Albums: FC = () => {
   const isInView = useInView(containerRef, { once: true })
   const { data: AlbumsData, isLoading: AlbumsDataIsLoading } = useGetRequestQuery(`/artists/${PARAMS?.id}/albums`)
 
+  console.log('🚀 ~ AlbumsDataIsLoading:', AlbumsDataIsLoading)
   const albumType = ['All', 'Albums', 'Singles and EPs']
   const [selectedAlbumType, setSelectedAlbumType] = useState('All')
 
@@ -31,10 +32,10 @@ const Albums: FC = () => {
     <>
       <div className='h-screen'>
         <h1 className='text-2xl font-bold text-foreground'>Albums</h1>
-        <div className='my-4 mt-2 flex space-x-2'>
+        <div className='my-4 flex space-x-2'>
           {albumType?.map((val: string) => (
             <p
-              className={`rounded-full border border-primary-foreground px-4 py-1 text-sm opacity-80 hover:cursor-pointer hover:opacity-100 ${selectedAlbumType === val ? `bg-muted-foreground` : ``}`}
+              className={`border px-4 py-1 text-sm opacity-100 hover:cursor-pointer  ${selectedAlbumType === val ? `bg-primary` : ``}`}
               onClick={() => setSelectedAlbumType(val)}
             >
               {val}

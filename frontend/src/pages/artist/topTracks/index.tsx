@@ -1,6 +1,5 @@
 import TrackTable from '@/components/table/TrackTable'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Toaster } from '@/components/ui/sonner'
 import { Table, TableBody, TableRow } from '@/components/ui/table'
 import { useGetRequestQuery } from '@/contexts/api/soundtrackApiService'
 import { MoreHorizontal, PauseCircle, PlayCircle } from 'lucide-react'
@@ -26,7 +25,7 @@ const TopTracks: FC = () => {
   }
 
   return (
-    <div>
+    <>
       <div className='flex items-center sm:space-x-2'>
         {play ? (
           <PauseCircle
@@ -63,8 +62,7 @@ const TopTracks: FC = () => {
         </Table>
       )}
       <TrackTable tableTile='Popular Tracks' data={TopTracksData?.data ?? []} />
-      <Toaster />
-    </div>
+    </>
   )
 }
 

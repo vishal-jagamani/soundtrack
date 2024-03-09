@@ -41,12 +41,12 @@ const Header: FC<HeaderProps> = ({ data, dataLoading }) => {
             src={data?.images?.[0]?.url}
             loading='lazy'
             draggable={false}
-            className='size-48 border-2 border-primary object-cover md:size-72'
+            className='size-48 border-2 border-primary object-cover md:size-56'
           />
           <div className='space-y-4'>
-            <h1 className='line-clamp-2 select-none text-[2.5rem] font-bold md:text-8xl'>{data?.name}</h1>
-            <p className='flex select-none items-center text-lg text-muted-foreground'>
-              <Users size={30} className='mr-2 text-primary' />
+            <h1 className='line-clamp-2 select-none text-[2.5rem] font-bold md:text-6xl'>{data?.name}</h1>
+            <p className='flex select-none items-center text-base text-muted-foreground'>
+              <Users size={20} className='mr-2 text-primary' />
               {formatNumber(data?.followers?.total)}
             </p>
           </div>
