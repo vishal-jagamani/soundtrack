@@ -1,16 +1,28 @@
 // AuthContext.tsx
-import { ReactNode, createContext, useContext, useState } from 'react'
+import { ReactNode, createContext, useContext, useEffect, useState } from 'react'
+import CryptoJS from 'crypto-js'
+import { CRYPTO_SECRET } from '../constant'
 
 interface AuthContextProps {
-  accessToken: string | null
-  setAccessToken: (token: string | null) => void
+  setUser: (token: string | null) => void
+  userDetails: any
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined)
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [accessToken, setAccessToken] = useState<string | null>(window.localStorage.getItem('accessToken'))
-  return <AuthContext.Provider value={{ accessToken, setAccessToken }}>{children}</AuthContext.Provider>
+  const [user, setUser] = useState<string | null>(window.localStorage.getItem('userDetails'))
+  const [userDetails, setUserDetails] = useState<any>({})
+
+  useEffect(() => {
+    if (user?.length) {
+      const DECRYPT = CryptoJS.AES.decrypt(user?.toString(), CRYPTO_SECRET)?.toString(CryptoJS.enc.Utf8)
+      // const DECRYPT_DATA = DECRYPT
+      setUserDetails(JSON.parse(DECRYPT))
+    }
+  }, [user])
+
+  return <AuthContext.Provider value={{ userDetails, setUser }}>{children}</AuthContext.Provider>
 }
 
 export const useAuth = () => {

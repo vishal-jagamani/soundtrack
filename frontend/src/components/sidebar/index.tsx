@@ -28,10 +28,12 @@ const Sidebar: FC = () => {
           >
             {React.cloneElement(icon, {
               strokeWidth: location?.pathname === to ? 2 : 2,
-              className: location?.pathname === to ? 'text-primary' : '',
+              className: location?.pathname === to ? 'text-primary' : 'text-foreground/90',
               // fill: 'bg-primary',
             })}
-            <h1 className={`text-sm font-normal transition-all ${location?.pathname === to ? 'text-primary' : ''}`}>{label}</h1>
+            <h1 className={`text-sm font-normal transition-all ${location?.pathname === to ? 'text-primary' : 'text-foreground/90'}`}>
+              {label}
+            </h1>
           </Link>
         ))}
       </div>
