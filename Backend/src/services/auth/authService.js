@@ -1,9 +1,10 @@
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
-import { Config } from '../../../config/config.js';
+import { Config, Secrets } from '../../../config/config.js';
 import { generateNewAccessToken, generateNewRefreshToken, refreshAccessTokenFromRefreshToken, validateAccessToken } from '../../utils/jwt.js';
 import { findLastDocument, findOne, findOneAndUpdate, insertOne, updateOne } from '../mongodbService.js';
+import CryptoJS from 'crypto-js';
 
 // Function to check user details from ux to handle anonymous or logged in user
 export const checkUserDetails = async (req, res) => {
@@ -25,7 +26,11 @@ export const checkUserDetails = async (req, res) => {
                 ]?.join(', ');
                 res?.setHeader('x-anonymous-user', false);
                 res?.set('Access-Control-Expose-Headers', exposedHeaders);
-                return res?.status(200)?.send({ status: true, message: 'Logged in user', data: validateToken?.validateResult });
+                const encryptedUserDetails = CryptoJS?.AES?.encrypt(
+                    JSON.stringify(validateToken?.validateResult),
+                    Secrets?.CRYPTOJS_SECRET,
+                )?.toString();
+                return res?.status(200)?.send({ status: true, message: 'Logged in user', data: encryptedUserDetails });
             } else {
                 if (validateToken && validateToken?.error == 'Expired') {
                     const refreshedToken = await refreshAccessTokenFromRefreshToken(refreshToken);
@@ -44,7 +49,11 @@ export const checkUserDetails = async (req, res) => {
                         res?.setHeader('x-anonymous-user', false);
                         res?.set('Access-Control-Expose-Headers', exposedHeaders);
                         const tokenData = await validateAccessToken(refreshedToken?.accessToken);
-                        return res.status(200).send({ status: true, message: 'Logged in user', data: tokenData?.validateResult });
+                        const encryptedUserDetails = CryptoJS?.AES?.encrypt(
+                            JSON.stringify(tokenData?.validateResult),
+                            Secrets?.CRYPTOJS_SECRET,
+                        )?.toString();
+                        return res.status(200).send({ status: true, message: 'Logged in user', data: encryptedUserDetails });
                     } else {
                         return await getAnonymousUserData(req, res);
                     }
@@ -305,7 +314,7 @@ export const userSignupDetails = async (req, res) => {
 // Function which logins the user in the app
 export const userLogin = async (req, res) => {
     try {
-        const { userId, email, password } = req?.body;
+        const { userId, firstName, lastName, email, password } = req?.body;
         const userData = await findOne('User', { email });
         if (userData) {
             bcrypt?.compare(password, userData?.password, async (err, result) => {
@@ -318,7 +327,8 @@ export const userLogin = async (req, res) => {
                         const refreshTokenExpiresIn = Math.floor(Date.now() / 1000) + 604800;
                         const tokenData = {
                             userId,
-                            name: userData?.name || null,
+                            firstName: userData?.firstName,
+                            lastName: userData?.lastName,
                             email: userData?.email || null,
                             isLoggedIn: true,
                             createdAt: Math.floor(Date.now() / 1000),
@@ -335,7 +345,8 @@ export const userLogin = async (req, res) => {
                         res?.set(headers);
                         const exposedHeaders = Object.keys(headers).join(', ');
                         res?.set('Access-Control-Expose-Headers', exposedHeaders);
-                        return res?.status(200)?.send({ status: true, message: 'Login successfull' });
+                        const encryptedUserDetails = CryptoJS?.AES?.encrypt(JSON.stringify(tokenData), Secrets?.CRYPTOJS_SECRET)?.toString();
+                        return res?.status(200)?.send({ status: true, message: 'Login successful', data: encryptedUserDetails });
                     } else {
                         return res?.status(200)?.send({ status: false, message: 'Wrong password' });
                     }
