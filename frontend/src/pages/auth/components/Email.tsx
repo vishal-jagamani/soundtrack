@@ -57,7 +57,7 @@ const Email: FC<EmailProps> = ({ handleChangeStep }) => {
   return (
     <motion.div key='email' variants={container} initial='hidden' animate='show' exit='exit'>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8 mt-8'>
+        <form onSubmit={form.handleSubmit(onSubmit)} className='mt-8 space-y-8'>
           <FormField
             control={form.control}
             name='email'
@@ -70,7 +70,7 @@ const Email: FC<EmailProps> = ({ handleChangeStep }) => {
               </FormItem>
             )}
           />
-          <Button className='w-full mt-6' type='submit' disabled={isLoading ? true : false}>
+          <Button className='mt-6 w-full' type='submit' disabled={isLoading ? true : false}>
             {isLoading ? <ReloadIcon className='mr-2 h-4 w-4 animate-spin' /> : null}
             Continue
           </Button>
@@ -87,11 +87,15 @@ const Email: FC<EmailProps> = ({ handleChangeStep }) => {
         </div>
       </div>
 
-      <Button variant={'outline'} className='w-full'>
-        {/* <ReloadIcon className='mr-2 h-4 w-4 animate-spin' /> */}
-        Continue with Spotify
-      </Button>
-      <div className='my-2 invisible'>hidden</div>
+      <div className='flex flex-col'>
+        <Button variant={'outline'} className='w-full'>
+          {/* <ReloadIcon className='mr-2 h-4 w-4 animate-spin' /> */}
+          Continue with Spotify
+        </Button>
+        <Button variant={'link'} className='mt-4 text-center text-xs'>
+          Forgot Password?
+        </Button>
+      </div>
     </motion.div>
   )
 }

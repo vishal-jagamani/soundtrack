@@ -2,13 +2,15 @@
 import { useGetRequestQuery } from '@/contexts/api/soundtrackApiService'
 import { FC } from 'react'
 import HomeList from './HomeList'
+import { useAuth } from '@/utils/hof/AuthContext'
 const Home: FC = () => {
   const { data: FeaturedPlaylist, isLoading } = useGetRequestQuery(`/playlists/featured?limit=15&offset=0`)
   const { data: NewRelease } = useGetRequestQuery(`/albums/newReleases?limit=15&offset=0`)
+  const { userDetails } = useAuth()
   return (
     <>
       <div className='wrapper-container'>
-        <h1 className='font-major text-xl font-bold text-primary'>hi, niranjan</h1>
+        <h1 className='font-major text-xl font-bold lowercase text-primary'>hi, {userDetails?.firstName}</h1>
         <p className='mt-1 text-sm text-foreground/80'>This content is exclusively crafted for you.</p>
 
         <>
@@ -21,8 +23,8 @@ const Home: FC = () => {
             </div>
           ) : (
             <div className='mt-8 space-y-8'>
-              <HomeList data={FeaturedPlaylist?.data} title={'playlists'} />
               <HomeList data={NewRelease?.data?.data} title={'albums'} />
+              <HomeList data={FeaturedPlaylist?.data} title={'playlists'} />
             </div>
           )}
         </>

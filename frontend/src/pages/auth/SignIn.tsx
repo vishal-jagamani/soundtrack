@@ -3,9 +3,9 @@ import PATTERN_IMAGE from '@/assets/images/sign_up_pattern.png'
 import Email from './components/Email'
 import { AnimatePresence, motion } from 'framer-motion'
 import Password from './components/Password'
-import OtpVerify from './components/OtpVerify'
 import RegisterForm from './components/RegisterForm'
 import { Toaster } from '@/components/ui/toaster'
+import InputOTPForm from './components/InputOTPForm'
 const container = {
   hidden: { opacity: 0, x: -200 },
   show: { opacity: 1, x: 0, transition: { delay: 0.5 } },
@@ -56,7 +56,8 @@ const SignIn: React.FC = () => {
                 ) : signInStep === 2 ? (
                   <Password />
                 ) : signInStep === 1 ? (
-                  <OtpVerify handleChangeStep={(val: number) => setSignInStep(val)} />
+                  // <OtpVerify handleChangeStep={(val: number) => setSignInStep(val)} />
+                  <InputOTPForm handleChangeStep={(val: number) => setSignInStep(val)} />
                 ) : (
                   <Email handleChangeStep={(val: number) => setSignInStep(val)} />
                 )}

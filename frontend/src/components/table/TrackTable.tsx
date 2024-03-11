@@ -1,5 +1,5 @@
 import { Table, TableBody, TableCaption, TableCell, TableRow } from '@/components/ui/table'
-import { Heart, MoreHorizontal } from 'lucide-react'
+import { Heart, MoreHorizontal, PlayIcon } from 'lucide-react'
 import React from 'react'
 import { useNavigate } from 'react-router'
 
@@ -24,14 +24,17 @@ const TrackTable: React.FC<TrackTableProps> = ({ tableTile, data }) => {
         <TableBody>
           {data &&
             data?.map((row: any, index: number) => (
-              <TableRow draggable={true} className='overflow-x-auto'>
-                <TableCell className='select-none px-1 font-medium' key={index}>
-                  {index + 1}
+              <TableRow draggable={false} className='group overflow-x-auto'>
+                <TableCell className='w-10 select-none text-center  transition-all md:w-16' key={index}>
+                  <div className='flex items-center justify-center'>
+                    <p className='group-hover:hidden'>{index + 1}</p>
+                    <PlayIcon className='hidden cursor-pointer text-foreground/80 group-hover:block' size={'20'} />
+                  </div>
                 </TableCell>
                 <TableCell className='flex items-center space-x-2 md:space-x-3'>
-                  <img src={row?.album?.images?.find((val: any) => val?.height === 64)?.url} alt='' className='size-11  sm:size-10' />
+                  <img src={row?.album?.images?.find((val: any) => val?.height === 64)?.url} alt='' className='size-10 md:size-10' />
                   <p
-                    className='line-clamp-1 min-w-44 select-none text-sm font-semibold hover:cursor-pointer hover:underline sm:text-base'
+                    className='font- line-clamp-1 min-w-44 select-none text-sm hover:cursor-pointer hover:underline sm:text-base'
                     onClick={() => navigate(`/track/${row?.id}`)}
                   >
                     {row?.name}

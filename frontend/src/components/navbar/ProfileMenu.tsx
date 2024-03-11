@@ -11,13 +11,16 @@ import { FC } from 'react'
 import { useNavigate } from 'react-router'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import ThemeToggle from './ThemeToggle'
+import { useAuth } from '@/utils/hof/AuthContext'
 
 const ProfileMenu: FC = () => {
-  const [localStorage] = useLocalStorage('user')
+  const [localStorage, setLocalStorage] = useLocalStorage('userDetails')
   const navigate = useNavigate()
+  const { userDetails } = useAuth()
   const handleSignOut = (val: any) => {
     if (val) {
-      //   setLocalStorage('logout')
+      setLocalStorage('logout')
+      navigate('/sign-in')
     } else navigate('/sign-in')
   }
 
@@ -34,7 +37,12 @@ const ProfileMenu: FC = () => {
           </DropdownMenuTrigger>
         </div>
         <DropdownMenuContent className='right-24'>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuLabel>
+            <div>
+              <h1 className='mb-1'>{userDetails?.userId ? `${userDetails?.firstName} ${userDetails?.lastName}` : 'My Account'}</h1>
+              <p className='text-xs text-muted-foreground'>{userDetails?.email}</p>
+            </div>
+          </DropdownMenuLabel>
           <DropdownMenuSeparator />
 
           <DropdownMenuItem>Profile</DropdownMenuItem>
@@ -43,7 +51,7 @@ const ProfileMenu: FC = () => {
           <DropdownMenuItem>Send feedback</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem className='cursor-pointer' onClick={() => handleSignOut(localStorage)}>
-            {localStorage ? 'Sign out' : 'Sign in'}
+            {userDetails?.userId ? 'Sign out' : 'Sign in'}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
