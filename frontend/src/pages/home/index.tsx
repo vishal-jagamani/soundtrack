@@ -1,8 +1,8 @@
 // import TrackCard from '@/components/card/TrackCard'
 import { useGetRequestQuery } from '@/contexts/api/soundtrackApiService'
 import { FC } from 'react'
-import HomeList from './HomeList'
 import { useAuth } from '@/utils/hof/AuthContext'
+import List from './list'
 const Home: FC = () => {
   const { data: FeaturedPlaylist, isLoading } = useGetRequestQuery(`/playlists/featured?limit=15&offset=0`)
   const { data: NewRelease } = useGetRequestQuery(`/albums/newReleases?limit=15&offset=0`)
@@ -10,7 +10,9 @@ const Home: FC = () => {
   return (
     <>
       <div className='wrapper-container'>
-        <h1 className='font-major text-xl font-bold lowercase text-primary'>hi, {userDetails?.firstName}</h1>
+        <h1 className='font-major text-xl font-bold lowercase text-primary'>
+          {userDetails?.firstName ? 'Hi,' : 'Welcome'} {userDetails?.firstName}
+        </h1>
         <p className='mt-1 text-sm text-foreground/80'>This content is exclusively crafted for you.</p>
 
         <>
@@ -23,8 +25,8 @@ const Home: FC = () => {
             </div>
           ) : (
             <div className='mt-8 space-y-8'>
-              <HomeList data={NewRelease?.data?.data} title={'albums'} />
-              <HomeList data={FeaturedPlaylist?.data} title={'playlists'} />
+              <List data={NewRelease?.data?.data} title={'albums'} />
+              <List data={FeaturedPlaylist?.data} title={'playlists'} />
             </div>
           )}
         </>

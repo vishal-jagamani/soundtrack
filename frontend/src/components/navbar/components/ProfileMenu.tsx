@@ -9,7 +9,7 @@ import {
 import { useLocalStorage } from '@/utils/customHooks/useLocalStorage'
 import { FC } from 'react'
 import { useNavigate } from 'react-router'
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
+import { Avatar, AvatarFallback, AvatarImage } from '../../ui/avatar'
 import ThemeToggle from './ThemeToggle'
 import { useAuth } from '@/utils/hof/AuthContext'
 

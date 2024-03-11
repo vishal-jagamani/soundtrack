@@ -35,6 +35,7 @@ const Albums: FC = () => {
           <p
             className={`border px-4 py-1 text-sm opacity-100 hover:cursor-pointer  ${selectedAlbumType === val ? `bg-primary` : ``}`}
             onClick={() => setSelectedAlbumType(val)}
+            key={val}
           >
             {val}
           </p>

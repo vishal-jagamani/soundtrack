@@ -12,7 +12,7 @@ const Layout: FC = () => {
     <>
       <Navbar />
       <div className='mt-14 grid grid-cols-1 md:grid-cols-[auto,1fr]'>
-        <div>
+        <div className='border-r'>
           <Sidebar />
         </div>
         <div className='relative mx-auto w-full max-w-screen-xl overflow-x-hidden'>
