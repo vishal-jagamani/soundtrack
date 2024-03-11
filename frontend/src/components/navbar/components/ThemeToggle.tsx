@@ -1,5 +1,5 @@
 import { Moon, Sun } from 'lucide-react'
-import { useTheme } from '../theme-provider'
+import { useTheme } from '../../theme-provider'
 import { motion } from 'framer-motion'
 
 const ThemeToggle = () => {

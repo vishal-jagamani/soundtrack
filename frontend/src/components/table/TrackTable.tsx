@@ -24,8 +24,8 @@ const TrackTable: React.FC<TrackTableProps> = ({ tableTile, data }) => {
         <TableBody>
           {data &&
             data?.map((row: any, index: number) => (
-              <TableRow draggable={false} className='group overflow-x-auto'>
-                <TableCell className='w-10 select-none text-center  transition-all md:w-16' key={index}>
+              <TableRow draggable={false} className='group overflow-x-auto' key={index}>
+                <TableCell className='w-10 select-none text-center  transition-all md:w-16'>
                   <div className='flex items-center justify-center'>
                     <p className='group-hover:hidden'>{index + 1}</p>
                     <PlayIcon className='hidden cursor-pointer text-foreground/80 group-hover:block' size={'20'} />

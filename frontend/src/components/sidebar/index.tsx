@@ -18,7 +18,7 @@ const Sidebar: FC = () => {
   const location = useLocation()
 
   return (
-    <div className='hidden w-full bg-background px-2 py-4 md:block md:w-20 lg:w-64 lg:border-r lg:px-6 '>
+    <div className='hidden w-full bg-background px-2 py-4 md:block md:w-20 lg:w-64 lg:px-6 '>
       <div className='fixed space-y-6 lg:w-52'>
         {sidebarItems.map(({ to, icon, label }) => (
           <Link

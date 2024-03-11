@@ -64,7 +64,7 @@ const Email: FC<EmailProps> = ({ handleChangeStep }) => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input placeholder='Email' {...field} />
+                  <Input placeholder='Email' {...field} autoFocus={true} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

@@ -51,8 +51,14 @@ const Password: FC = ({}) => {
   return (
     <motion.div key='email' variants={container} initial='hidden' animate='show' exit='exit'>
       <form className='mt-8 grid grid-cols-6 gap-6' onSubmit={handleSubmit}>
-        <div className='col-span-6 mt-8'>
-          <Input type='password' placeholder='Password' value={password} onChange={e => handleChangePassword(e.target.value)} />
+        <div className='col-span-6'>
+          <Input
+            type='password'
+            placeholder='Password'
+            value={password}
+            onChange={e => handleChangePassword(e.target.value)}
+            autoFocus={true}
+          />
           {errors.length ? <p className='mt-2 text-xs text-red-500'>{errors}</p> : null}
           {/* <Link to={'/'}> */}
           <Button type='submit' className='mt-6 w-full'>
@@ -62,6 +68,20 @@ const Password: FC = ({}) => {
           {/* </Link> */}
         </div>
       </form>
+      <div className='invisible relative my-8'>
+        <div className='absolute inset-0 flex items-center'>
+          <span className='w-full border-t border-gray-500'></span>
+        </div>
+        {/* <div className="text-xs text-muted-foreground text-center bg-black ">OR CONTINUE WITH</div> */}
+        <div className='relative flex justify-center text-xs uppercase'>
+          <span className='bg-background px-2 text-muted-foreground'>OR</span>
+        </div>
+      </div>
+
+      <Button variant={'outline'} className='invisible w-full'>
+        {/* <ReloadIcon className='mr-2 h-4 w-4 animate-spin' /> */}
+        Continue with Spotify
+      </Button>
     </motion.div>
   )
 }

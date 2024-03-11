@@ -3,7 +3,7 @@
 import { Home, ListVideo, Menu, Search } from 'lucide-react'
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from '../ui/drawer'
+import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from '../../ui/drawer'
 
 interface SidebarItem {
   to: string
