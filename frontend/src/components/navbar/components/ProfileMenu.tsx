@@ -39,7 +39,7 @@ const ProfileMenu: FC = () => {
         <DropdownMenuContent className='right-24'>
           <DropdownMenuLabel>
             <div>
-              <h1 className='mb-1'>{user?.userId ? `${user?.firstName} ${user?.lastName}` : 'My Account'}</h1>
+              <h1 className='mb-1'>{user?.isLoggedIn ? `${user?.firstName} ${user?.lastName}` : 'My Account'}</h1>
               <p className='text-xs text-muted-foreground'>{user?.email}</p>
             </div>
           </DropdownMenuLabel>
@@ -51,7 +51,7 @@ const ProfileMenu: FC = () => {
           <DropdownMenuItem>Send feedback</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem className='cursor-pointer' onClick={() => handleSignOut(localStorage)}>
-            {user?.userId ? 'Sign out' : 'Sign in'}
+            {user?.isAnonymous ? 'Sign in' : 'Sign out'}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

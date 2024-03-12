@@ -67,3 +67,27 @@ export const getAlbum = async (id) => {
         return { statusCode: 500, data: { status: false, message: 'Error in service' } };
     }
 };
+
+//* Function to get the album tracks
+export const getAlbumTracks = async (id) => {
+    try {
+        if (!id) return { statusCode: 200, data: { status: false, message: 'Album id not found' } };
+        else {
+            const url = `${Spotify_Config?.API_Base_URL}/albums/${id}/tracks`;
+            const response = await spotifyGET(url);
+            const tracks = response?.data?.items?.map((item) => {
+                return Object.keys(item).reduce((newObj, key) => {
+                    if (Spotify_Response_Mapping?.Track?.[key]) {
+                        newObj[Spotify_Response_Mapping?.Track?.[key]] = item[key];
+                    }
+                    return newObj;
+                }, {});
+            });
+            const data = { total: response?.data?.total, previous: response?.data?.previous, tracks };
+            return { statusCode: 200, data: { status: true, message: 'Album tracks data', data } };
+        }
+    } catch (err) {
+        console.log('Error in albumService.getAlbum service', err);
+        return { statusCode: 500, data: { status: false, message: 'Error in service' } };
+    }
+};

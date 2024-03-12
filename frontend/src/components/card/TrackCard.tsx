@@ -8,7 +8,7 @@ interface TrackCardProps {
 
 const TrackCard: FC<TrackCardProps> = ({ data, type }) => {
   const navigate = useNavigate()
-  const IMAGE = structuredClone(data?.images)
+  const IMAGE = structuredClone(data?.images) ?? []
 
   const priorityOrder = [300, 640, 64]
   const customSort = (a: any, b: any) => {
@@ -20,7 +20,7 @@ const TrackCard: FC<TrackCardProps> = ({ data, type }) => {
   const sortedImages = IMAGE.sort(customSort)
   const priorityImage = sortedImages.length > 0 ? sortedImages[0] : null
   const handleNavigate = () => {
-    if (type === 'artists') navigate(`/artist/${data?.id}`)
+    navigate(`/${type.slice(0, -1)}/${data?.id}`)
   }
   return (
     <Card
