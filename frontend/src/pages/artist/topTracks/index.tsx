@@ -51,7 +51,7 @@ const TopTracks: FC = () => {
       </div>
       {TopTracksIsLoading &&
         Array.from(Array(10).keys())?.map((_, i) => <Skeleton className='mt-1 flex h-8 items-center md:space-x-3' key={i} />)}
-      <TrackTable tableTile='Popular Tracks' data={TopTracksData?.data ?? []} />
+      <TrackTable tableTile='Popular Tracks' data={TopTracksData?.data ?? []} hideImage={false} />
     </>
   )
 }
