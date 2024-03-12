@@ -6,9 +6,10 @@ import { useNavigate } from 'react-router'
 interface TrackTableProps {
   tableTile: string
   data: any
+  hideImage: Boolean
 }
 
-const TrackTable: React.FC<TrackTableProps> = ({ tableTile, data }) => {
+const TrackTable: React.FC<TrackTableProps> = ({ tableTile, data, hideImage }) => {
   const navigate = useNavigate()
 
   const formatTime = (duration: number): string => {
@@ -21,7 +22,7 @@ const TrackTable: React.FC<TrackTableProps> = ({ tableTile, data }) => {
     <>
       <TableCaption className='flex pb-2 text-2xl font-bold text-foreground'>{tableTile}</TableCaption>
       <Table>
-        <TableBody>
+        <TableBody className='space-y-4'>
           {data &&
             data?.map((row: any, index: number) => (
               <TableRow draggable={false} className='group overflow-x-auto' key={index}>
@@ -31,10 +32,12 @@ const TrackTable: React.FC<TrackTableProps> = ({ tableTile, data }) => {
                     <PlayIcon className='hidden cursor-pointer text-foreground/80 group-hover:block' size={'20'} />
                   </div>
                 </TableCell>
-                <TableCell className='flex items-center space-x-2 md:space-x-3'>
-                  <img src={row?.album?.images?.find((val: any) => val?.height === 64)?.url} alt='' className='size-10 md:size-10' />
+                <TableCell className='flex items-center space-x-2 py-4 md:space-x-3'>
+                  {!hideImage && (
+                    <img src={row?.album?.images?.find((val: any) => val?.height === 64)?.url} alt='' className='size-10 md:size-10' />
+                  )}
                   <p
-                    className='font- line-clamp-1 min-w-44 select-none text-sm hover:cursor-pointer hover:underline sm:text-base'
+                    className='line-clamp-1 min-w-44 select-none text-sm hover:cursor-pointer hover:underline sm:text-base '
                     onClick={() => navigate(`/track/${row?.id}`)}
                   >
                     {row?.name}

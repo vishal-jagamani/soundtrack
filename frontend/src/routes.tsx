@@ -9,6 +9,7 @@ import Playlist from './pages/playlist'
 import ErrorPage from './components/ErrorPage'
 import Feedback from './pages/feedback'
 import Artist from './pages/artist'
+import Album from './pages/album'
 // import ErrorPage from "./components/errorPage";
 // import PageNotFound from './components/utils/hoc/pageNotFound';
 // const TokenValidation = lazy(() => import('./components/utils/hoc/tokenValidation'));
@@ -43,6 +44,11 @@ export const router = createBrowserRouter([
       {
         path: '/artist/:id',
         element: <Artist />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: '/album/:id',
+        element: <Album />,
         errorElement: <ErrorPage />,
       },
       {
