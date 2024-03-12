@@ -11,10 +11,10 @@ import { useAuth } from './utils/hof/AuthContext'
 export const App: React.FC = () => {
   const { data: AuthUser } = useGetRequestQuery('/user')
 
-  const { setUser } = useAuth()
+  const { setUserEncrypted } = useAuth()
 
   useEffect(() => {
-    if (AuthUser?.data) setUser(AuthUser?.data)
+    if (AuthUser?.data) setUserEncrypted(AuthUser?.data)
   }, [AuthUser])
 
   return (
