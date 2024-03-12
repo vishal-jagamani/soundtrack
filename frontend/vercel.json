@@ -9,6 +9,10 @@
       "destination": "/search"
     },
     {
+      "source": "/artist(.*)",
+      "destination": "/artist"
+    },
+    {
       "source": "/playlist(.*)",
       "destination": "/playlist"
     },

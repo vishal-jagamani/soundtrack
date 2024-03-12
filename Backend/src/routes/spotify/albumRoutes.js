@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 
 // Services
-import { getAlbum, getNewReleases, getSeveralAlbums } from '../../services/spotify/albumService.js';
+import { getAlbum, getAlbumTracks, getNewReleases, getSeveralAlbums } from '../../services/spotify/albumService.js';
 import { verifyAccessToken } from '../../utils/jwt.js';
 
 // Middleware to handle authentication
@@ -35,6 +35,15 @@ router.get('/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const response = await getAlbum(id);
+        res.status(response?.statusCode).send(response?.data);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+router.get('/:id/tracks', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const response = await getAlbumTracks(id);
         res.status(response?.statusCode).send(response?.data);
     } catch (err) {
         res.status(500).send(err);
