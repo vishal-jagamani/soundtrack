@@ -1,8 +1,6 @@
-import { Separator } from '@/components/ui/separator'
 import { useGetRequestQuery } from '@/contexts/api/soundtrackApiService'
 import { FC } from 'react'
 import { useParams } from 'react-router'
-import Albums from './albums'
 import Header from './header'
 import Tracks from './tracks'
 

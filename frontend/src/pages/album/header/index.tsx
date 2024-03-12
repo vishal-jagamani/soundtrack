@@ -1,9 +1,7 @@
 import { Skeleton } from '@/components/ui/skeleton'
-import { Calendar, Headphones, Users } from 'lucide-react'
+import { Calendar, Headphones, MoreHorizontal, PauseCircle, PlayCircle } from 'lucide-react'
 import { FC, useState } from 'react'
-import { MoreHorizontal, PauseCircle, PlayCircle } from 'lucide-react'
 import { toast } from 'sonner'
-import { Separator } from '@/components/ui/separator'
 
 interface HeaderProps {
   data: any
