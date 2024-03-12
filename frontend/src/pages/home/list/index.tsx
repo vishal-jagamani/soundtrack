@@ -2,13 +2,13 @@ import TrackCard from '@/components/card/TrackCard'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { FC, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-
 interface ComponentProps {
   title: string
   data: any
 }
 
 const List: FC<ComponentProps> = ({ title, data }) => {
+  console.log('🚀 ~ data:', data)
   const [scrollPosition, setScrollPosition] = useState<number>(0)
   const containerRef = useRef<HTMLOListElement>(null)
   const isInView = useInView(containerRef, { once: true })
@@ -24,7 +24,7 @@ const List: FC<ComponentProps> = ({ title, data }) => {
   }
 
   const item = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 30 },
     show: { opacity: 1, y: 0 },
   }
   const handleScroll = (scrollAmount: any) => {
