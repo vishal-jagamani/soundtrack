@@ -83,7 +83,13 @@ export const getAlbumTracks = async (id) => {
                     return newObj;
                 }, {});
             });
-            const data = { total: response?.data?.total, previous: response?.data?.previous, tracks };
+            const data = {
+                limit: response?.data?.limit,
+                offset: response?.data?.offset,
+                total: response?.data?.total,
+                previous: response?.data?.previous,
+                tracks,
+            };
             return { statusCode: 200, data: { status: true, message: 'Album tracks data', data } };
         }
     } catch (err) {
