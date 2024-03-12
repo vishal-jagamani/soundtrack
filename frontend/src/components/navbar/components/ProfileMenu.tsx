@@ -16,7 +16,7 @@ import { useAuth } from '@/utils/hof/AuthContext'
 const ProfileMenu: FC = () => {
   const [localStorage, setLocalStorage] = useLocalStorage('userDetails')
   const navigate = useNavigate()
-  const { userDetails } = useAuth()
+  const { user } = useAuth()
   const handleSignOut = (val: any) => {
     if (val) {
       setLocalStorage('logout')
@@ -39,8 +39,8 @@ const ProfileMenu: FC = () => {
         <DropdownMenuContent className='right-24'>
           <DropdownMenuLabel>
             <div>
-              <h1 className='mb-1'>{userDetails?.userId ? `${userDetails?.firstName} ${userDetails?.lastName}` : 'My Account'}</h1>
-              <p className='text-xs text-muted-foreground'>{userDetails?.email}</p>
+              <h1 className='mb-1'>{user?.userId ? `${user?.firstName} ${user?.lastName}` : 'My Account'}</h1>
+              <p className='text-xs text-muted-foreground'>{user?.email}</p>
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
@@ -51,7 +51,7 @@ const ProfileMenu: FC = () => {
           <DropdownMenuItem>Send feedback</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem className='cursor-pointer' onClick={() => handleSignOut(localStorage)}>
-            {userDetails?.userId ? 'Sign out' : 'Sign in'}
+            {user?.userId ? 'Sign out' : 'Sign in'}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
