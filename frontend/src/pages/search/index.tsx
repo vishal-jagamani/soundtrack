@@ -12,7 +12,7 @@ interface SearchResponse {
 const Search: FC = () => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const searchText = searchParams.get('q') ?? ''
+  const searchText = searchParams?.get('q') ?? ''
   const [searchResponse, setSearchResponse] = useState<SearchResponse>({})
 
   const SEARCH_HEADER_TITLE_CASE = useMemo(() => {
