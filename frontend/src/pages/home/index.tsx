@@ -25,8 +25,8 @@ const Home: FC = () => {
             </div>
           ) : (
             <div className='mt-8 space-y-8'>
-              <List data={NewRelease?.data?.data} title={'albums'} />
               <List data={FeaturedPlaylist?.data} title={'playlists'} />
+              <List data={NewRelease?.data?.data} title={'albums'} />
             </div>
           )}
         </>
