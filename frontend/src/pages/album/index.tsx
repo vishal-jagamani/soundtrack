@@ -3,6 +3,8 @@ import { FC } from 'react'
 import { useParams } from 'react-router'
 import Header from './header'
 import Tracks from './tracks'
+import Albums from './albums'
+import { ArtistType } from '@/utils/types/type'
 
 const Album: FC = () => {
   const PARAMS = useParams()
@@ -13,7 +15,7 @@ const Album: FC = () => {
       <Tracks />
       {/* <Separator className='my-6' />   */}
 
-      {/* <Albums /> */}
+      {ArtistData?.data?.artists?.map((artist: ArtistType) => <Albums artist={artist} />)}
     </div>
   )
 }

@@ -1,4 +1,3 @@
-import { Separator } from '@/components/ui/separator'
 import { useGetRequestQuery } from '@/contexts/api/soundtrackApiService'
 import { FC } from 'react'
 import { useParams } from 'react-router'
@@ -12,9 +11,9 @@ const Artist: FC = () => {
   return (
     <div className='wrapper-container'>
       <Header data={ArtistData?.data} dataLoading={dataLoading} />
-      <Separator className='my-6' />
+      {/* <Separator className='my-6' /> */}
       <TopTracks />
-      <Separator className='my-6' />
+      {/* <Separator className='my-6' /> */}
 
       <Albums />
     </div>

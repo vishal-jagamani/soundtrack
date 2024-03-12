@@ -1,11 +1,12 @@
 import { Table, TableBody, TableCaption, TableCell, TableRow } from '@/components/ui/table'
-import { Heart, MoreHorizontal, PlayIcon } from 'lucide-react'
+import { SmallArtistType, TrackType } from '@/utils/types/type'
+import { Dot, Heart, MoreHorizontal, PlayIcon } from 'lucide-react'
 import React from 'react'
 import { useNavigate } from 'react-router'
 
 interface TrackTableProps {
   tableTile: string
-  data: any
+  data: TrackType[]
   hideImage: Boolean
 }
 
@@ -32,24 +33,34 @@ const TrackTable: React.FC<TrackTableProps> = ({ tableTile, data, hideImage }) =
                     <PlayIcon className='hidden cursor-pointer text-foreground/80 group-hover:block' size={'20'} />
                   </div>
                 </TableCell>
-                <TableCell className='flex items-center space-x-2 py-4 md:space-x-3'>
+                <TableCell className='flex items-center space-x-2 py-3 md:space-x-3'>
                   {!hideImage && (
                     <img src={row?.album?.images?.find((val: any) => val?.height === 64)?.url} alt='' className='size-10 md:size-10' />
                   )}
-                  <p
-                    className='line-clamp-1 min-w-44 select-none text-sm hover:cursor-pointer hover:underline sm:text-base '
-                    onClick={() => navigate(`/track/${row?.id}`)}
-                  >
-                    {row?.name}
-                  </p>
+                  <div>
+                    <p
+                      className='line-clamp-1 min-w-44 select-none text-sm hover:cursor-pointer hover:underline sm:text-base '
+                      onClick={() => navigate(`/track/${row?.id}`)}
+                    >
+                      {row?.name}
+                    </p>
+                    <div className='flex items-center space-x-1 '>
+                      {row?.artists?.map((artist: SmallArtistType, index: number) => (
+                        <>
+                          {index > 0 ? <Dot size={15} className='text-muted-foreground' /> : null}
+                          <p className='text-[0.70rem] text-muted-foreground'>{artist?.name}</p>
+                        </>
+                      ))}
+                    </div>
+                  </div>
                 </TableCell>
                 <TableCell className='hidden select-none'>{row?.artists?.map((val: any) => val?.name)?.join(', ')}</TableCell>
                 <TableCell className=''>
-                  <Heart size={18} className='hover:cursor-pointer' />
+                  <Heart size={18} className='hidden hover:cursor-pointer md:table-cell' />
                 </TableCell>
-                <TableCell className='hidden select-none md:table-cell'>{formatTime(row?.durationMs)}</TableCell>
+                <TableCell className='select-none text-xs md:text-sm'>{formatTime(row?.durationMs)}</TableCell>
                 <TableCell className='px-2'>
-                  <MoreHorizontal size={22} className='hover:cursor-pointer' />
+                  <MoreHorizontal size={20} className='hover:cursor-pointer' />
                 </TableCell>
               </TableRow>
             ))}
