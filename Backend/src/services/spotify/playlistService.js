@@ -23,3 +23,26 @@ export const getFeaturedPlaylists = async (locale, limit, offset) => {
         return { statusCode: 500, data: { status: false, message: 'Error in service' } };
     }
 };
+
+// Get playlist details from spotify by playlist id
+export const getPlaylist = async (id, market, fields, additionalTypes) => {
+    try {
+        if (!id) return { statusCode: 200, data: { status: false, message: 'Playlist id not found' } };
+        else {
+            let url = `${Spotify_Config?.API_Base_URL}/playlists/${id}${market ? `?market=${market}` : ``}`;
+            fields ? (url += `&fields=${fields}`) : null;
+            additionalTypes ? (url += `&additional_types=${additionalTypes}`) : null;
+            const response = await spotifyGET(url);
+            const data = Object.keys(response?.data).reduce((newObj, key) => {
+                if (Spotify_Response_Mapping?.Playlist?.[key]) {
+                    newObj[Spotify_Response_Mapping?.Playlist?.[key]] = response?.data?.[key];
+                }
+                return newObj;
+            }, {});
+            return { statusCode: 200, data: { status: true, message: 'Album data', data } };
+        }
+    } catch (err) {
+        console.log('Error in playlistService.getPlaylist service', err);
+        return { statusCode: 500, data: { status: false, message: 'Error in service' } };
+    }
+};

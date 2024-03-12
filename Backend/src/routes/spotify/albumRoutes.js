@@ -40,6 +40,8 @@ router.get('/:id', async (req, res) => {
         res.status(500).send(err);
     }
 });
+
+// Get album tracks by album id
 router.get('/:id/tracks', async (req, res) => {
     try {
         const { id } = req.params;
