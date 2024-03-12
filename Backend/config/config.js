@@ -113,6 +113,16 @@ export const Spotify_Response_Mapping = {
         images: 'images',
         tracks: 'tracks',
     },
+    User: {
+        id: 'id',
+        uri: 'uri',
+        display_name: 'name',
+        type: 'type',
+        href: 'href',
+        followers: 'followers',
+        external_urls: 'externalURLs',
+        images: 'images',
+    },
     Search: {
         album: {
             id: 'id',
