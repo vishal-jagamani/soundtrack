@@ -15,7 +15,7 @@ const Header: FC<HeaderProps> = ({ data, dataLoading }) => {
   const handleFollowButtonClick = () => {
     if (following) {
       setFollowing(false)
-      toast('Unfollowed the artist')
+      toast('Un-followed the artist')
     } else {
       setFollowing(true)
       toast('Followed the artist')
