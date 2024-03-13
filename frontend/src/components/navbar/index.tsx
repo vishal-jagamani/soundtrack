@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import SideDrawer from '../sidebar/components/SideDrawer'
 import ProfileMenu from './components/ProfileMenu'
+import { Link } from 'react-router-dom'
 
 const Navbar: FC = () => {
   return (
@@ -9,7 +10,9 @@ const Navbar: FC = () => {
         <div className='flex size-10 items-center justify-center hover:bg-muted lg:hidden'>
           <SideDrawer />
         </div>
-        <h1 className='ml-2 whitespace-nowrap font-major text-xl text-primary'>SOUNDTRACK!</h1>
+        <Link to='/'>
+          <h1 className='ml-2 whitespace-nowrap font-major text-xl text-primary'>SOUNDTRACK!</h1>
+        </Link>
       </div>
 
       <ProfileMenu />

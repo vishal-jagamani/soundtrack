@@ -24,12 +24,12 @@ export const router = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: '/search',
+        path: '/search/:searchText',
         element: <Search />,
         errorElement: <ErrorPage />,
       },
       {
-        path: '/playlist',
+        path: '/playlist/:id',
         element: <Playlist />,
         errorElement: <ErrorPage />,
       },
