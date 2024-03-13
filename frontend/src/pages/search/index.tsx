@@ -1,35 +1,48 @@
+import { Button } from '@/components/ui/button'
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useSearchInputMutation } from '@/contexts/api/soundtrackApiService'
-import useDebounce from '@/utils/customHooks/useDebounce'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { FC, useEffect, useMemo, useState } from 'react'
-import { useNavigate } from 'react-router'
-import { useSearchParams } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { useNavigate, useParams } from 'react-router'
+import { z } from 'zod'
 import SearchContainer from './SearchList'
 interface SearchResponse {
   [key: string]: any
 }
 
+const FormSchema = z.object({
+  search: z.string().min(3, {
+    message: 'Search text must be at least 3 characters.',
+  }),
+})
+
 const Search: FC = () => {
   const navigate = useNavigate()
-  const [searchParams] = useSearchParams()
-  const searchText = searchParams?.get('q') ?? ''
+  const PARAMS = useParams()
+  const searchText = PARAMS?.searchText ?? ''
   const [searchResponse, setSearchResponse] = useState<SearchResponse>({})
+  const [SearchInput, { isLoading }] = useSearchInputMutation()
+
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      search: '',
+    },
+  })
+
+  function onSubmit(data: z.infer<typeof FormSchema>) {
+    navigate({
+      pathname: `/search/${data?.search}`,
+    })
+  }
 
   const SEARCH_HEADER_TITLE_CASE = useMemo(() => {
     return Object?.keys(searchResponse ?? {})
   }, [searchResponse])
 
-  const [SearchInput, { isLoading }] = useSearchInputMutation()
-
-  const debouncedSearchTerm = useDebounce(decodeURIComponent(searchText), 800)
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newSearchTerm = e.target.value
-    navigate({
-      pathname: '/search',
-      search: newSearchTerm?.length ? `?q=${encodeURIComponent(newSearchTerm)}` : '',
-    })
-  }
+  // const debouncedSearchTerm = useDebounce(decodeURIComponent(tempSearchText), 800)
 
   const fetchData = async (searchTerm: string) => {
     try {
@@ -41,13 +54,30 @@ const Search: FC = () => {
   }
 
   useEffect(() => {
-    fetchData(debouncedSearchTerm)
-  }, [debouncedSearchTerm])
+    fetchData(searchText)
+  }, [searchText])
 
   return (
     <div className='wrapper-container space-y-6 '>
-      {/* Search */}
-      <Input value={searchText} type='text' placeholder='Search' onChange={e => handleChange(e)} />
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className='w-full space-y-6'>
+          <FormField
+            control={form.control}
+            name='search'
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input placeholder='Search Text' {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type='submit' className='hidden'>
+            Submit
+          </Button>
+        </form>
+      </Form>
       <>
         {isLoading ? (
           <div className='grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible'>
