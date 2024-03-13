@@ -5,17 +5,17 @@ const mongodbDatabase = MonogoDB_Config?.MONGODB_DATABASE;
 const connectionString = MonogoDB_Config?.MONGODB_CONNECTION_STRING;
 
 // Global level function to connect to mongo db
-let client;
-(async () => {
-    try {
-        client = new MongoClient(connectionString);
-        await client.connect();
-        console.log('Connected successfully to MongoDB');
-    } catch (err) {
-        console.log('Error occurred while connecting to MongoDB:', err);
-        throw err;
-    }
-})();
+// let client;
+// (async () => {
+//     try {
+//         client = new MongoClient(connectionString);
+//         await client.connect();
+//         console.log('Connected successfully to MongoDB');
+//     } catch (err) {
+//         console.log('Error occurred while connecting to MongoDB:', err);
+//         throw err;
+//     }
+// })();
 
 // Test the mongodb connetion
 const testDBConnection = async () => {
