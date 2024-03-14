@@ -7,7 +7,6 @@ interface TrackCardProps {
 }
 
 const TrackCard: FC<TrackCardProps> = ({ data, type }) => {
-  console.log('🚀 ~ data:', data)
   const navigate = useNavigate()
   const IMAGE = structuredClone(data?.images) ?? []
 
@@ -61,7 +60,7 @@ const TrackCard: FC<TrackCardProps> = ({ data, type }) => {
         )}
       </CardHeader>
       <CardContent className='p-2'>
-        <CardTitle className='line-clamp-1 select-none text-sm font-normal text-foreground/90'>{data?.name}</CardTitle>
+        <CardTitle className='line-clamp-1 select-none text-sm font-semibold text-foreground/90'>{data?.name}</CardTitle>
         <CardDescription className='mt-1 select-none text-xs'>{handleSubTitle(data, data?.type)}</CardDescription>
       </CardContent>
       {/* <CardFooter>

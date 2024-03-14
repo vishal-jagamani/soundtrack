@@ -52,7 +52,7 @@
 
 @layer base {
   * {
-    @apply border-border font-inter;
+    @apply font-poppins border-border;
   }
   body {
     @apply bg-background text-foreground;
