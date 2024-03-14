@@ -7,7 +7,7 @@ import { FC, useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router'
 import { z } from 'zod'
-import SearchContainer from './SearchList'
+import List from './list'
 interface SearchResponse {
   [key: string]: any
 }
@@ -90,7 +90,7 @@ const Search: FC = () => {
         <div className='space-y-8'>
           {!isLoading &&
             SEARCH_HEADER_TITLE_CASE?.map((title, index) => {
-              return <SearchContainer data={searchResponse} title={title} key={index} />
+              return <List data={searchResponse} title={title} key={index} />
             })}
         </div>
       </>
