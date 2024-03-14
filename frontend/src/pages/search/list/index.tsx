@@ -1,7 +1,7 @@
 import TrackCard from '@/components/card/TrackCard'
+import { motion, useInView } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { FC, useRef, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
 
 interface ComponentProps {
   title: string
