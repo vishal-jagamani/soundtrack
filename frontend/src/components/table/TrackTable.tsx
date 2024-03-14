@@ -1,6 +1,6 @@
 import { Table, TableBody, TableCaption, TableCell, TableRow } from '@/components/ui/table'
-import { ArtistType, SmallArtistType, TrackType } from '@/utils/types/type'
-import { Dot, Heart, MoreHorizontal, PlayIcon } from 'lucide-react'
+import { ArtistType, TrackType } from '@/utils/types/type'
+import { Heart, MoreHorizontal, PlayIcon } from 'lucide-react'
 import React from 'react'
 import { useNavigate } from 'react-router'
 

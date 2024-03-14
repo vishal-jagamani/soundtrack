@@ -1,7 +1,7 @@
 import { Table, TableBody, TableCaption, TableCell, TableRow } from '@/components/ui/table'
-import { Item, Owner } from '@/utils/types/playlistType'
+import { Item } from '@/utils/types/playlistType'
 import { ArtistType } from '@/utils/types/type'
-import { Dot, Heart, MoreHorizontal, PlayIcon } from 'lucide-react'
+import { Heart, MoreHorizontal, PlayIcon } from 'lucide-react'
 import React from 'react'
 import { useNavigate } from 'react-router'
 
