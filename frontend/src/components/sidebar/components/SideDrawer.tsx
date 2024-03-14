@@ -13,7 +13,7 @@ interface SidebarItem {
 
 const sidebarItems: SidebarItem[] = [
   { to: '/', icon: <Home />, label: 'Home' },
-  { to: '/search', icon: <Search />, label: 'Search' },
+  { to: '/search/camila', icon: <Search />, label: 'Search' },
   { to: '/playlist', icon: <ListVideo />, label: 'Playlist' },
 ]
 const SideDrawer = () => {
@@ -26,7 +26,7 @@ const SideDrawer = () => {
         <Menu className='cursor-pointer text-muted-foreground' />
       </DrawerTrigger>
       <DrawerContent showSlider={false} className='left-0 top-0 mt-0 w-64 rounded-none border-t-0'>
-        <div className='h-screen w-full space-y-6 px-6 py-4'>
+        <div className='h-screen w-full space-y-6 px-2 py-4'>
           <div className='flex w-[240px] items-center pt-2 lg:border-r'>
             <div className='flex size-10 items-center justify-center hover:bg-muted lg:hidden'>
               <DrawerClose>

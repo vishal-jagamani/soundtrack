@@ -1,4 +1,4 @@
-import { Skeleton } from '@/components/ui/skeleton'
+import DetailPageHeader from '@/components/skeleton/DetailPageHeader'
 import { AlbumType, SmallArtistType } from '@/utils/types/type'
 import { Dot, PauseCircle, PlayCircle } from 'lucide-react'
 import { FC, useState } from 'react'
@@ -33,20 +33,8 @@ const Header: FC<HeaderProps> = ({ data, dataLoading }) => {
   }
   return (
     <>
-      {dataLoading && (
-        <div className='flex items-end space-x-5'>
-          <Skeleton className='size-48 object-cover md:size-72' />
-          <div className='space-y-4'>
-            <Skeleton className='h-24 w-56 md:w-96 ' />
-            <Skeleton className='h-10 w-1/2 md:w-60' />
-            {/* <p className='flex select-none items-center text-lg text-muted-foreground'>
-                <Users size={30} className='mr-2 text-primary' />
-                {formatNumber(artistData?.followers?.total)}
-              </p> */}
-          </div>
-          <div></div>
-        </div>
-      )}
+      <DetailPageHeader loading={dataLoading} />
+
       {data && (
         <div className='flex flex-col items-center space-y-4 md:flex-row md:items-end md:space-x-4'>
           <img

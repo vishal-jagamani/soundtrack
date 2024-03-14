@@ -10,10 +10,10 @@ const Home: FC = () => {
   return (
     <>
       <div className='wrapper-container'>
-        <h1 className='font-major text-xl font-bold lowercase text-primary'>
+        <h1 className='select-none font-major text-xl font-bold lowercase text-primary'>
           {user?.firstName ? 'Hi,' : 'Welcome'} {user?.firstName}
         </h1>
-        <p className='mt-1 text-sm text-foreground/80'>This content is exclusively crafted for you.</p>
+        <p className='mt-1 select-none text-sm text-foreground/80'>This content is exclusively crafted for you.</p>
 
         <>
           {isLoading ? (

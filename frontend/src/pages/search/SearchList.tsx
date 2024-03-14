@@ -41,7 +41,7 @@ const SearchList: FC<ComponentProps> = ({ title, data }) => {
   return (
     <div>
       <div className='flex items-center justify-between'>
-        <h1 className='mb-4 capitalize'>{title}</h1>
+        <h1 className='mb-4 text-xl font-bold capitalize'>{title}</h1>
         <div className='hidden space-x-4 md:flex'>
           <ChevronLeft className='cursor-pointer' onClick={() => handleScroll(-700)} />
           <ChevronRight className='cursor-pointer' onClick={() => handleScroll(700)} />
