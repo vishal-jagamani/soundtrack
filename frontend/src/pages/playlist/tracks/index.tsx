@@ -9,7 +9,6 @@ interface TracksProps {
 }
 
 const Tracks: FC<TracksProps> = ({ data, isLoading }) => {
-  console.log('🚀 ~ data:', data)
   return (
     <>
       <TableSkeleton loading={isLoading} />
