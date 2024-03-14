@@ -2,6 +2,7 @@ import { FC } from 'react'
 import SideDrawer from '../sidebar/components/SideDrawer'
 import ProfileMenu from './components/ProfileMenu'
 import { Link } from 'react-router-dom'
+import LOGO from '@/assets/images/soundtrack_logo.png'
 
 const Navbar: FC = () => {
   return (
@@ -11,7 +12,8 @@ const Navbar: FC = () => {
           <SideDrawer />
         </div>
         <Link to='/'>
-          <h1 className='ml-2 whitespace-nowrap font-major text-xl text-primary'>SOUNDTRACK!</h1>
+          {/* <h1 className='ml-2 whitespace-nowrap font-major text-xl text-primary'>SOUNDTRACK!</h1> */}
+          <img src={LOGO} className='ml-2 w-full lg:w-4/5' />
         </Link>
       </div>
 
