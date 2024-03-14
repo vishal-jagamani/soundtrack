@@ -6,6 +6,7 @@ module.exports = {
   theme: {
     fontFamily: {
       inter: 'Inter',
+      poppins: 'Poppins',
       major: 'Major Mono Display',
       'open-sans': 'Open Sans',
     },
