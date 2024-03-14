@@ -51,11 +51,11 @@ const List: FC<ComponentProps> = ({ title, data }) => {
         variants={container}
         initial='hidden'
         animate={isInView ? 'show' : ''}
-        className='no-scrollbar flex w-full snap-x space-x-6 overflow-x-scroll scroll-smooth'
+        className='flex w-full snap-x space-x-6 overflow-x-scroll scroll-smooth'
         ref={containerRef}
       >
         {data?.[title]?.map((list: any, index: number) => (
-          <motion.li variants={item} key={index} className='my-2'>
+          <motion.li variants={item} key={index}>
             <TrackCard data={list} type={title} />
           </motion.li>
         ))}

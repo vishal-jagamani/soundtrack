@@ -23,8 +23,13 @@ export const router = createBrowserRouter([
         element: <Home />,
         errorElement: <ErrorPage />,
       },
+      // {
+      //   path: '/search/:searchText',
+      //   element: <Search />,
+      //   errorElement: <ErrorPage />,
+      // },
       {
-        path: '/search/:searchText',
+        path: '/search/:searchText?',
         element: <Search />,
         errorElement: <ErrorPage />,
       },

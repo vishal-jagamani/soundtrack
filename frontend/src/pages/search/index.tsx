@@ -87,12 +87,15 @@ const Search: FC = () => {
             />
           </div>
         ) : null}
-        <div className='space-y-8'>
-          {!isLoading &&
-            SEARCH_HEADER_TITLE_CASE?.map((title, index) => {
-              return <List data={searchResponse} title={title} key={index} />
-            })}
-        </div>
+
+        {!isLoading &&
+          SEARCH_HEADER_TITLE_CASE?.map((title, index) => {
+            return (
+              <div className='mt-8 space-y-8'>
+                <List data={searchResponse} title={title} key={index} />
+              </div>
+            )
+          })}
       </>
     </div>
   )

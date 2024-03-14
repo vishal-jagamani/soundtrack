@@ -47,7 +47,7 @@ const TrackCard: FC<TrackCardProps> = ({ data, type }) => {
   }
   return (
     <Card
-      className='group cursor-pointer snap-start overflow-hidden border-none transition-all hover:bg-muted '
+      className='group my-2 cursor-pointer snap-start overflow-hidden border-none transition-all hover:bg-muted'
       onClick={() => handleNavigate()}
     >
       <CardHeader className='size-40 space-y-4 p-1'>

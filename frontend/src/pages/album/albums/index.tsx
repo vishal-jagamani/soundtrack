@@ -56,7 +56,7 @@ const Albums: FC<AlbumProps> = ({ artist }) => {
       >
         {FILTERED_ALBUM_DATA?.map((list: AlbumType, index: number) => (
           <motion.li variants={item} key={index}>
-            <TrackCard data={list} type={list?.type} />
+            <TrackCard data={list} type={`${list?.type}s`} />
           </motion.li>
         ))}
       </motion.ol>

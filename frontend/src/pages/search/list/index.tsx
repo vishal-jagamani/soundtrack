@@ -51,7 +51,7 @@ const List: FC<ComponentProps> = ({ title, data }) => {
         variants={container}
         initial='hidden'
         animate={isInView ? 'show' : ''}
-        className='no-scrollbar flex w-full snap-x space-x-6 overflow-scroll scroll-smooth'
+        className='no-scrollbar flex w-full snap-x space-x-6 overflow-x-scroll scroll-smooth'
         ref={containerRef}
       >
         {data?.[title]?.items?.map((list: any, index: number) => (
