@@ -8,7 +8,7 @@ import { ThemeProvider } from './components/theme-provider'
 import { useGetRequestQuery } from './contexts/api/authApiService'
 import { useAuth } from './utils/hof/AuthContext'
 import { SpeedInsights } from '@vercel/speed-insights/react'
-
+import { Analytics } from '@vercel/analytics/react'
 export const App: React.FC = () => {
   const { data: AuthUser } = useGetRequestQuery('/user')
 
@@ -25,7 +25,7 @@ export const App: React.FC = () => {
           {/* <Layout> */}
           <RouterProvider router={router} />
           <SpeedInsights />
-
+          <Analytics />
           {/* </Layout> */}
         </ThemeProvider>
       </Suspense>
