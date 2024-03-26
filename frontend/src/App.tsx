@@ -18,7 +18,7 @@ export const App: React.FC = () => {
     if (AuthUser?.data) setUserEncrypted(AuthUser?.data)
   }, [AuthUser])
 
-  return (
+  return AuthUser?.status ? (
     <AnimatePresence mode='wait'>
       <Suspense fallback={<LoadingSpinner />}>
         <ThemeProvider defaultTheme='dark' storageKey='soundtrack-ui-theme'>
@@ -30,6 +30,8 @@ export const App: React.FC = () => {
         </ThemeProvider>
       </Suspense>
     </AnimatePresence>
+  ) : (
+    <LoadingSpinner />
   )
 }
 
