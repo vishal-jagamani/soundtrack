@@ -14,10 +14,10 @@ const TrackCardSkeleton: FC<TrackSkeletonProps> = ({ loading, length, className 
       {loading && (
         <div className={cn('space-y-16', className)}>
           {Array.from(Array(length).keys())?.map((_, i) => (
-            <div>
+            <div className='overflow-auto'>
               <Skeleton className='mb-5 h-6 w-52' />
-              <div className='flex space-x-7' key={i}>
-                {Array.from(Array(6).keys())?.map((_, i) => <Skeleton className='size-40 h-52' key={i} />)}
+              <div className='flex space-x-7 overflow-scroll' key={i}>
+                {Array.from(Array(6).keys())?.map((_, i) => <Skeleton className='h-52 w-40' key={i} />)}
               </div>
             </div>
           ))}
