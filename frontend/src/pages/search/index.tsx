@@ -1,3 +1,4 @@
+import TrackCardSkeleton from '@/components/skeleton/TrackCardSkeleton'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
@@ -7,7 +8,7 @@ import { FC, useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router'
 import { z } from 'zod'
-import SearchContainer from './SearchList'
+import List from './list'
 interface SearchResponse {
   [key: string]: any
 }
@@ -79,20 +80,16 @@ const Search: FC = () => {
         </form>
       </Form>
       <>
-        {isLoading ? (
-          <div className='grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible'>
-            <div
-              className='h-12 w-12 animate-spin rounded-full
-                    border-2 border-solid border-primary border-t-transparent'
-            />
-          </div>
-        ) : null}
-        <div className='space-y-8'>
-          {!isLoading &&
-            SEARCH_HEADER_TITLE_CASE?.map((title, index) => {
-              return <SearchContainer data={searchResponse} title={title} key={index} />
-            })}
-        </div>
+        <TrackCardSkeleton loading={isLoading} length={3} />
+
+        {!isLoading &&
+          SEARCH_HEADER_TITLE_CASE?.map((title, index) => {
+            return (
+              <div className='mt-8 space-y-8'>
+                <List data={searchResponse} title={title} key={index} />
+              </div>
+            )
+          })}
       </>
     </div>
   )

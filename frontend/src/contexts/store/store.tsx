@@ -3,12 +3,14 @@ import { authApi, soundtrackApi } from './slice'
 import soundtrack from '../reducers/soundtrack'
 import authSlice from '../../pages/auth/slice/authSlice'
 import { authMiddleware } from '@/utils/hof/Middleware'
+import track from '../reducers/track'
 
 export const store = configureStore({
   reducer: {
     // reducer for slice goes here
     generalData: soundtrack,
     authData: authSlice,
+    trackData: track,
     [soundtrackApi.reducerPath]: soundtrackApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
   },

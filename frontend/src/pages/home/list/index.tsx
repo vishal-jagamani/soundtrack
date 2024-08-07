@@ -8,7 +8,6 @@ interface ComponentProps {
 }
 
 const List: FC<ComponentProps> = ({ title, data }) => {
-  console.log('🚀 ~ data:', data)
   const [scrollPosition, setScrollPosition] = useState<number>(0)
   const containerRef = useRef<HTMLOListElement>(null)
   const isInView = useInView(containerRef, { once: true })
@@ -42,7 +41,7 @@ const List: FC<ComponentProps> = ({ title, data }) => {
   return (
     <div>
       <div className='flex items-center justify-between'>
-        <h1 className='mb-4 text-xl font-bold capitalize'>{title}</h1>
+        <h1 className='mb-4 select-none text-xl font-bold capitalize'>{title}</h1>
         <div className='hidden space-x-4 md:flex'>
           <ChevronLeft className='cursor-pointer' onClick={() => handleScroll(-700)} />
           <ChevronRight className='cursor-pointer' onClick={() => handleScroll(700)} />
@@ -56,7 +55,7 @@ const List: FC<ComponentProps> = ({ title, data }) => {
         ref={containerRef}
       >
         {data?.[title]?.map((list: any, index: number) => (
-          <motion.li variants={item} key={index} className='my-2'>
+          <motion.li variants={item} key={index}>
             <TrackCard data={list} type={title} />
           </motion.li>
         ))}

@@ -16,10 +16,9 @@ const sidebarItems: SidebarItem[] = [
 
 const Sidebar: FC = () => {
   const location = useLocation()
-  console.log('🚀 ~ location:', location)
 
   return (
-    <div className='hidden w-full bg-background px-2 py-4 md:block md:w-20 lg:w-64 lg:px-6 '>
+    <div className='mt-6 hidden w-full bg-background px-2 py-4 md:block md:w-20 lg:w-64 lg:px-6'>
       <div className='fixed space-y-6 lg:w-52'>
         {sidebarItems.map(({ to, icon, label }) => (
           <Link

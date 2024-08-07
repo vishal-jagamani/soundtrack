@@ -12,6 +12,7 @@ import { motion } from 'framer-motion'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 import * as z from 'zod'
 
 const formSchema = z.object({
@@ -88,10 +89,11 @@ const Email: FC<EmailProps> = ({ handleChangeStep }) => {
       </div>
 
       <div className='flex flex-col'>
-        <Button variant={'outline'} className='w-full'>
-          {/* <ReloadIcon className='mr-2 h-4 w-4 animate-spin' /> */}
-          Continue with Spotify
-        </Button>
+        <Link to='/'>
+          <Button variant={'outline'} className='w-full'>
+            Skip for now
+          </Button>
+        </Link>
         <Button variant={'link'} className='mt-4 text-center text-xs'>
           Forgot Password?
         </Button>

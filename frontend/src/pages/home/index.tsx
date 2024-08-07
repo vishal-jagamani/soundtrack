@@ -1,7 +1,8 @@
 // import TrackCard from '@/components/card/TrackCard'
+import TrackCardSkeleton from '@/components/skeleton/TrackCardSkeleton'
 import { useGetRequestQuery } from '@/contexts/api/soundtrackApiService'
-import { FC } from 'react'
 import { useAuth } from '@/utils/hof/AuthContext'
+import { FC } from 'react'
 import List from './list'
 const Home: FC = () => {
   const { data: FeaturedPlaylist, isLoading } = useGetRequestQuery(`/playlists/featured?limit=15&offset=0`)
@@ -16,14 +17,8 @@ const Home: FC = () => {
         <p className='mt-1 select-none text-sm text-foreground/80'>This content is exclusively crafted for you.</p>
 
         <>
-          {isLoading ? (
-            <div className='grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible'>
-              <div
-                className='h-12 w-12 animate-spin rounded-full
-                    border-2 border-solid border-primary border-t-transparent'
-              />
-            </div>
-          ) : (
+          <TrackCardSkeleton loading={isLoading} length={3} className='mt-10' />
+          {!isLoading && (
             <div className='mt-8 space-y-8'>
               <List data={FeaturedPlaylist?.data} title={'playlists'} />
               <List data={NewRelease?.data?.data} title={'albums'} />

@@ -1,14 +1,14 @@
 import TrackCard from '@/components/card/TrackCard'
+import { motion, useInView } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { FC, useRef, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
 
 interface ComponentProps {
   title: string
   data: any
 }
 
-const SearchList: FC<ComponentProps> = ({ title, data }) => {
+const List: FC<ComponentProps> = ({ title, data }) => {
   const [scrollPosition, setScrollPosition] = useState<number>(0)
   const containerRef = useRef<HTMLOListElement>(null)
   const isInView = useInView(containerRef, { once: true })
@@ -41,7 +41,7 @@ const SearchList: FC<ComponentProps> = ({ title, data }) => {
   return (
     <div>
       <div className='flex items-center justify-between'>
-        <h1 className='mb-4 text-xl font-bold capitalize'>{title}</h1>
+        <h1 className='mb-4 select-none text-xl font-bold capitalize'>{title}</h1>
         <div className='hidden space-x-4 md:flex'>
           <ChevronLeft className='cursor-pointer' onClick={() => handleScroll(-700)} />
           <ChevronRight className='cursor-pointer' onClick={() => handleScroll(700)} />
@@ -51,7 +51,7 @@ const SearchList: FC<ComponentProps> = ({ title, data }) => {
         variants={container}
         initial='hidden'
         animate={isInView ? 'show' : ''}
-        className='no-scrollbar flex w-full snap-x space-x-6 overflow-scroll scroll-smooth'
+        className='no-scrollbar flex w-full snap-x space-x-6 overflow-x-scroll scroll-smooth'
         ref={containerRef}
       >
         {data?.[title]?.items?.map((list: any, index: number) => (
@@ -64,4 +64,4 @@ const SearchList: FC<ComponentProps> = ({ title, data }) => {
   )
 }
 
-export default SearchList
+export default List
